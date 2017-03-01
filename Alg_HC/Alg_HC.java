@@ -1,4 +1,4 @@
-package build;
+package Alg_HC;
 
 import weka.clusterers.HierarchicalClusterer;
 
