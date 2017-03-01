@@ -18,6 +18,7 @@ public class DBScan {
 		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
 		Dataset data = FileHandler.loadDataset(f1, ","); 
 
+		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
 		Clusterer cl = new DensityBasedSpatialClustering();
 
 		System.out.println("Méthode utilisée : DBSCAN"); 
