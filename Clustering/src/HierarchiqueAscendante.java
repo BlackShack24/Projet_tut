@@ -12,37 +12,41 @@ import weka.core.converters.ConverterUtils.DataSource;
 
 public class HierarchiqueAscendante {
 
-public static void main(String[] args) throws Exception { 
+	public static void main(String[] args) throws Exception { 
 
-	/* Load dataset */ 
-	DataSource source = new DataSource("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
-	Instances instances = source.getDataSet();
-	
-	HierarchicalClusterer HC = new HierarchicalClusterer();
-	HC.buildClusterer(instances);
-	
-	System.out.println("Méthode utilisée : CAH"); 
+		/* Load dataset */ 
+		DataSource source = new DataSource("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis2.csv");
+		Instances instances = source.getDataSet();
 
-//	for (int j = 0; j < HC.numberOfClusters(); j++) System.out.println(HC.get(j));
+		HierarchicalClusterer HC = new HierarchicalClusterer();
+		HC.buildClusterer(instances);
 
-	/* The actual clustering of the data */
-//	Dataset[] clusters = HC.cluster(data); 
-//
-//	for (int i = 0; i < clusters.length; i++) { 
-//		FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
-//	} 
-	/* Print the number of clusters found */ 
-	System.out.println("Number of clusters: " + HC.numberOfClusters()); 
+		System.out.println("Méthode utilisée : "+HC.globalInfo()); 
 
-//	/* Create object for the evaluation of the clusters */ 
-//	ClusterEvaluation eval;
-//	/* Measuring the quality of the clusters (multiple measures) */ 
-//	eval = new SumOfSquaredErrors(); 
-//	System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
-//	eval = new SumOfCentroidSimilarities(); 
-//	System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
-//	eval = new SumOfAveragePairwiseSimilarities(); 
-//	System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
-}
-	
+		//	for (int j = 0; j < HC.numberOfClusters(); j++) System.out.println(HC.get(j));
+		System.out.println("Clusters : \n"+HC.toString());
+		
+		
+		
+		/* The actual clustering of the data */
+		//	Dataset[] clusters = HC.cluster(data); 
+		//
+		//	for (int i = 0; i < clusters.length; i++) { 
+		//		FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
+		//	} 
+		/* Print the number of clusters found */ 
+		System.out.println("Number of clusters: " + HC.numberOfClusters()); 
+
+		
+		//	/* Create object for the evaluation of the clusters */ 
+		//	ClusterEvaluation eval;
+		//	/* Measuring the quality of the clusters (multiple measures) */ 
+		//	eval = new SumOfSquaredErrors(); 
+		//	System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+		//	eval = new SumOfCentroidSimilarities(); 
+		//	System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+		//	eval = new SumOfAveragePairwiseSimilarities(); 
+		//	System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+	}
+
 }
