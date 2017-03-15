@@ -21,7 +21,6 @@ public class DBScan {
 
 	public static void main(String[] args) throws Exception { 
 
-
 		/*Create dateset*/
 		Dataset data = new DefaultDataset();
 		
@@ -32,7 +31,7 @@ public class DBScan {
 		String[] values;
 		double idu, idi, k=0;
 		double note;
-		while (br.readLine() != null) {
+		while (br.readLine() != null && k < 500) {
 			k++;
 			//if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
@@ -53,31 +52,31 @@ public class DBScan {
 //		/* Load dataset */ 
 //		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
 //		Dataset data = FileHandler.loadDataset(f1, ",");
-//
-//		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
-//		Clusterer cl = new DensityBasedSpatialClustering();
-//
-//		System.out.println("Méthode utilisée : DBSCAN"); 
-//
-////		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
-//
-//		/* The actual clustering of the data */ 
-//		Dataset[] clusters = cl.cluster(data); 
-//
+
+		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
+		Clusterer cl = new DensityBasedSpatialClustering();
+
+		System.out.println("Méthode utilisée : DBSCAN"); 
+
+//		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
+
+		/* The actual clustering of the data */ 
+		Dataset[] clusters = cl.cluster(data); 
+
 //		for (int i = 0; i < clusters.length; i++) { 
 //			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
 //		} 
-//		/* Print the number of clusters found */ 
-//		System.out.println("Number of clusters: " + clusters.length); 
-//
-//		/* Create object for the evaluation of the clusters */ 
-//		ClusterEvaluation eval;
-//		/* Measuring the quality of the clusters (multiple measures) */ 
-//		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
-//		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
-//		eval = new SumOfCentroidSimilarities(); 
-//		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
-//		eval = new SumOfAveragePairwiseSimilarities(); 
-//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+		/* Print the number of clusters found */ 
+		System.out.println("Number of clusters: " + clusters.length); 
+
+		/* Create object for the evaluation of the clusters */ 
+		ClusterEvaluation eval;
+		/* Measuring the quality of the clusters (multiple measures) */ 
+		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
+		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+		eval = new SumOfCentroidSimilarities(); 
+		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+		eval = new SumOfAveragePairwiseSimilarities(); 
+		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
 	}
 }
