@@ -26,7 +26,6 @@ public class DBScan {
 		Dataset data = new DefaultDataset();
 		
 		HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
-<<<<<<< HEAD
 		File f1 = new File("Donnees\\ratings.csv");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
 		String line = br.readLine();
