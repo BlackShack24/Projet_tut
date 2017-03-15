@@ -15,6 +15,8 @@ import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
+import net.sf.javaml.distance.DistanceMeasure;
+import net.sf.javaml.distance.EuclideanDistance;
 import net.sf.javaml.tools.data.FileHandler;
 
 public class KMedoidsAlg {
@@ -32,7 +34,7 @@ public class KMedoidsAlg {
 		String[] values;
 		double idu, idi, note;
 		int k=0;
-		while ((line = br.readLine()) != null && k<1000) {
+		while ((line = br.readLine()) != null && k<10000) {
 			k++;
 			//if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
@@ -49,12 +51,12 @@ public class KMedoidsAlg {
 		}
 		
 		br.close();
-
-		Clusterer cl = new KMedoids();
+		DistanceMeasure dm = new EuclideanDistance();
+		Clusterer cl = new KMedoids(10, 20000, dm);
 
 		System.out.println("Méthode utilisée : KMedoids"); 
 
-		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
+		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j));
 
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
