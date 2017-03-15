@@ -31,9 +31,10 @@ public class DBScan {
 		String[] values;
 		double idu, idi, k=0;
 		double note;
-		while (br.readLine() != null && k < 500) {
+		while (k<500) {
+			line = br.readLine();
 			k++;
-			//if (k % 10000 == 0) System.out.println(k);
+			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
@@ -49,9 +50,6 @@ public class DBScan {
 		
 		br.close();
 
-//		/* Load dataset */ 
-//		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
-//		Dataset data = FileHandler.loadDataset(f1, ",");
 
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
 		Clusterer cl = new DensityBasedSpatialClustering();
@@ -63,9 +61,10 @@ public class DBScan {
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
 
-//		for (int i = 0; i < clusters.length; i++) { 
-//			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
-//		} 
+		System.out.println("bonjour");
+		for (int i = 0; i < clusters.length; i++) { 
+			FileHandler.exportDataset(clusters[i], new File("Output\\" + i + ".txt")); 
+		} 
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
 
