@@ -26,6 +26,7 @@ public class DBScan {
 		Dataset data = new DefaultDataset();
 		
 		HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
+<<<<<<< HEAD
 		File f1 = new File("Donnees\\ratings.csv");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
 		String line = br.readLine();
@@ -34,7 +35,7 @@ public class DBScan {
 		double note;
 		while (br.readLine() != null) {
 			k++;
-			if (k % 10000 == 0) System.out.println(k);
+			//if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
@@ -53,32 +54,31 @@ public class DBScan {
 //		/* Load dataset */ 
 //		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
 //		Dataset data = FileHandler.loadDataset(f1, ",");
-
-
-		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
-		Clusterer cl = new DensityBasedSpatialClustering();
-
-		System.out.println("Méthode utilisée : DBSCAN"); 
-
-//		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
-
-		/* The actual clustering of the data */ 
-		Dataset[] clusters = cl.cluster(data); 
-
-		for (int i = 0; i < clusters.length; i++) { 
-			//FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
-		} 
-		/* Print the number of clusters found */ 
-		System.out.println("Number of clusters: " + clusters.length); 
-
-		/* Create object for the evaluation of the clusters */ 
-		ClusterEvaluation eval;
-		/* Measuring the quality of the clusters (multiple measures) */ 
-		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
-		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
-		eval = new SumOfCentroidSimilarities(); 
-		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
-		eval = new SumOfAveragePairwiseSimilarities(); 
-		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+//
+//		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
+//		Clusterer cl = new DensityBasedSpatialClustering();
+//
+//		System.out.println("Méthode utilisée : DBSCAN"); 
+//
+////		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
+//
+//		/* The actual clustering of the data */ 
+//		Dataset[] clusters = cl.cluster(data); 
+//
+//		for (int i = 0; i < clusters.length; i++) { 
+//			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
+//		} 
+//		/* Print the number of clusters found */ 
+//		System.out.println("Number of clusters: " + clusters.length); 
+//
+//		/* Create object for the evaluation of the clusters */ 
+//		ClusterEvaluation eval;
+//		/* Measuring the quality of the clusters (multiple measures) */ 
+//		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
+//		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+//		eval = new SumOfCentroidSimilarities(); 
+//		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+//		eval = new SumOfAveragePairwiseSimilarities(); 
+//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
 	}
 }
