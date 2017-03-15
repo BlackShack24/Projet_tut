@@ -1,162 +1,80 @@
 package Kmeans;
 
-/* 
- * KMeans.java ; Cluster.java ; Point.java
- *
- * Solution implemented by DataOnFocus
- * www.dataonfocus.com
- * 2015
- *
-*/
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.HashMap;
 
-import java.util.ArrayList;
-import java.util.List;
-import Kmeans.Point;
-import Kmeans.Cluster;
-public class KMeans {
+import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.KMeans;
+import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
+import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
+import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
+import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
+import net.sf.javaml.core.Dataset;
+import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.DenseInstance;
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.data.FileHandler;
 
-	//Number of Clusters. This metric should be related to the number of points
-    private int NUM_CLUSTERS = 3;    
-    //Number of Points
-    private int NUM_POINTS = 15;
-    //Min and Max X and Y
-    private static final int MIN_COORDINATE = 0;
-    private static final int MAX_COORDINATE = 10;
-    
-    private List points;
-    private List clusters;
-    
-    public KMeans() {
-    	this.points = new ArrayList();
-    	this.clusters = new ArrayList();    	
-    }
-    
-    public static void main(String[] args) {
-    	
-    	KMeans kmeans = new KMeans();
-    	kmeans.init();
-    	kmeans.calculate();
-    }
-    
-    //Initializes the process
-    public void init() {
-    	//Create Points
-    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
-    	
-    	//Create Clusters
-    	//Set Random Centroids
-    	for (int i = 0; i < NUM_CLUSTERS; i++) {
-    		Cluster cluster = new Cluster(i);
-    		Point centroid = Point.createRandomPoint(MIN_COORDINATE,MAX_COORDINATE);
-    		cluster.setCentroid(centroid);
-    		clusters.add(cluster);
-    	}
-    	
-    	//Print Initial state
-    	plotClusters();
-    }
+public class KMeansAlg {
 
-	private void plotClusters() {
-    	for (int i = 0; i < NUM_CLUSTERS; i++) {
-    		Cluster c = (Cluster) clusters.get(i);
-    		c.plotCluster();
-    	}
-    }
-    
-	//The process to calculate the K Means, with iterating method.
-    public void calculate() {
-        boolean finish = false;
-        int iteration = 0;
-        
-        // Add in new data, one at a time, recalculating centroids with each new one. 
-        while(!finish) {
-        	//Clear cluster state
-        	clearClusters();
-        	
-        	List lastCentroids = getCentroids();
-        	
-        	//Assign points to the closer cluster
-        	assignCluster();
-            
-            //Calculate new centroids.
-        	calculateCentroids();
-        	
-        	iteration++;
-        	
-        	List currentCentroids = getCentroids();
-        	
-        	//Calculates total distance between new and old Centroids
-        	double distance = 0;
-        	for(int i = 0; i < lastCentroids.size(); i++) {
-        		distance += Point.distance((Point) lastCentroids.get(i), (Point) currentCentroids.get(i));
-        	}
-        	System.out.println("#################");
-        	System.out.println("Iteration: " + iteration);
-        	System.out.println("Centroid distances: " + distance);
-        	plotClusters();
-        	        	
-        	if(distance == 0) {
-        		finish = true;
-        	}
-        }
-    }
-    
-    private void clearClusters() {
-    	for(int i = 0 ; i < clusters.size() ; i++) {
-    		((Cluster) clusters.get(i)).clear();
-    	}
-    }
-    
-    private List getCentroids() {
-    	List centroids = new ArrayList(NUM_CLUSTERS);
-    	for(int i = 0 ; i < clusters.size() ; i++) {
-    		Point aux = ((Cluster) clusters.get(i)).getCentroid();
-    		Point point = new Point(aux.getX(),aux.getY());
-    		centroids.add(point);
-    	}
-    	return centroids;
-    }
-    
-    private void assignCluster() {
-        double max = Double.MAX_VALUE;
-        double min = max; 
-        int cluster = 0;                 
-        double distance = 0.0; 
-        
-        for(int j = 0 ; j< points.size() ; j++) {
-        	min = max;
-            for(int i = 0; i < NUM_CLUSTERS; i++) {
-            	Cluster c = (Cluster) clusters.get(i);
-                distance = Point.distance((Point) points.get(j), c.getCentroid());
-                if(distance < min){
-                    min = distance;
-                    cluster = i;
-                }
-            }
-            ((Point) points.get(j)).setCluster(cluster);
-            ((Cluster) clusters.get(cluster)).addPoint((Point) points.get(j));
-        }
-    }
-    
-    private void calculateCentroids() {
-        for(int i=0 ; i<clusters.size() ; i++) {
-            double sumX = 0;
-            double sumY = 0;
-            List list = ((Cluster) clusters.get(i)).getPoints();
-            int n_points = list.size();
-            
-            for(int j=0 ; j<list.size() ; j++) {
-            	sumX += ((Point) list.get(j)).getX();
-                sumY += ((Point) list.get(j)).getY();
-            }
-            
-            Point centroid = ((Cluster) clusters.get(i)).getCentroid();
-            if(n_points > 0) {
-            	double newX = sumX / n_points;
-            	double newY = sumY / n_points;
-                centroid.setX(newX);
-                centroid.setY(newY);
-            }
-        }
-    }
+	public static void main(String[] args) throws Exception {
+
+		/*Create dateset*/
+		Dataset data = new DefaultDataset();
+		
+		HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
+		File f1 = new File("Donnees\\ratings.csv");
+		BufferedReader br = new BufferedReader(new FileReader(f1));
+		String line = br.readLine();
+		String[] values;
+		double idu, idi, k=0;
+		double note;
+		while ((line = br.readLine()) != null) {
+			k++;
+			//if (k % 10000 == 0) System.out.println(k);
+			values = line.split(",");
+			idu = Double.parseDouble(values[0]);
+			idi = Double.parseDouble(values[1]);
+			note = Double.parseDouble(values[2]);
+			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
+//			if (!notes_items.containsKey(idi)) 	notes_items.put(idi, new HashMap());
+//			notes_items.get(idi).put(idu, note);			
+			double[] valeurs = new double[] { idi, idu, note };
+			/* Create instance*/
+			Instance instance = new DenseInstance(valeurs);
+			data.add(instance);
+		}
+		
+		br.close();
+		
+		/* Load dataset */ 
+//		File f1 = new File("Donnees\\ratings.csv");
+//		Dataset data = FileHandler.loadDataset(f1, ","); 
+		
+		Clusterer cl = new KMeans();
+		System.out.println("Méthode utilisée : KMeans"); 
+
+		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
+
+		/* The actual clustering of the data */ 
+		Dataset[] clusters = cl.cluster(data); 
+
+		for (int i = 0; i < clusters.length; i++) { 
+			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\KMeansoutput" + i + ".txt")); 
+		} 
+		/* Print the number of clusters found */ 
+		System.out.println("Number of clusters: " + clusters.length); 
+
+		/* Create object for the evaluation of the clusters */ 
+		ClusterEvaluation eval;
+		/* Measuring the quality of the clusters (multiple measures) */ 
+		eval = new SumOfSquaredErrors(); 
+		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+		eval = new SumOfCentroidSimilarities(); 
+		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+		eval = new SumOfAveragePairwiseSimilarities(); 
+		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+	}
 }
