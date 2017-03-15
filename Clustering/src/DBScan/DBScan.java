@@ -26,18 +26,18 @@ public class DBScan {
 		Dataset data = new DefaultDataset();
 		
 		HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
-		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
+		File f1 = new File("Donnees\\ratings.csv");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
 		String line = br.readLine();
 		String[] values;
-		int idu, idi, k=0;
+		double idu, idi, k=0;
 		double note;
-		while (k<50) {
+		while (br.readLine() != null) {
 			k++;
 			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
-			idu = Integer.parseInt(values[0]);
-			idi = Integer.parseInt(values[1]);
+			idu = Double.parseDouble(values[0]);
+			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
 			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
 //			if (!notes_items.containsKey(idi)) 	notes_items.put(idi, new HashMap());
@@ -66,7 +66,7 @@ public class DBScan {
 		Dataset[] clusters = cl.cluster(data); 
 
 		for (int i = 0; i < clusters.length; i++) { 
-			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
+			//FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
 		} 
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
