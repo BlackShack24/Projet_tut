@@ -1,3 +1,5 @@
+package DBScan;
+
 import java.io.File;
 
 import net.sf.javaml.clustering.Clusterer;
@@ -15,7 +17,7 @@ public class DBScan {
 	public static void main(String[] args) throws Exception { 
 
 		/* Load dataset */ 
-		File f1 = new File("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis.csv");
+		File f1 = new File("C:\\Users\\Gus\\Documents\\ScienceCo\\M1\\DeuxiemeSemestre\\ProjetTUT\\Projet_tut\\Donnees\\ratingbis.csv");
 		Dataset data = FileHandler.loadDataset(f1, ","); 
 
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance

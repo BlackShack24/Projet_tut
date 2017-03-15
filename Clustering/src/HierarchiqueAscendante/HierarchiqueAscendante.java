@@ -1,3 +1,5 @@
+package HierarchiqueAscendante;
+
 import java.io.File;
 
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
