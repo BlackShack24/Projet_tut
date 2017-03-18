@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 
 import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.KMeans;
 import net.sf.javaml.clustering.KMedoids;
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
 import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
@@ -15,14 +16,13 @@ import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
-import net.sf.javaml.distance.DistanceMeasure;
-import net.sf.javaml.distance.EuclideanDistance;
-import net.sf.javaml.tools.data.FileHandler;
 
 public class KMedoidsAlg {
 
 	public static void main(String[] args) throws Exception {
-		
+
+		// Calcul temps d'execution
+		long debut = System.currentTimeMillis();
 		
 		/*Create dateset*/
 		Dataset data = new DefaultDataset();
@@ -32,18 +32,17 @@ public class KMedoidsAlg {
 		BufferedReader br = new BufferedReader(new FileReader(f1));
 		String line = br.readLine();
 		String[] values;
-		double idu, idi, note;
-		int k=0;
-		while ((line = br.readLine()) != null && k<10000) {
+		double idu, idi, k=0;
+		double note;
+		while (k<400) {
+			line = br.readLine();
 			k++;
-			//if (k % 10000 == 0) System.out.println(k);
+			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
-//			if (!notes_items.containsKey(idi)) 	notes_items.put(idi, new HashMap());
-//			notes_items.get(idi).put(idu, note);			
+			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
 			double[] valeurs = new double[] { idi, idu, note };
 			/* Create instance*/
 			Instance instance = new DenseInstance(valeurs);
@@ -51,19 +50,23 @@ public class KMedoidsAlg {
 		}
 		
 		br.close();
-		DistanceMeasure dm = new EuclideanDistance();
-		Clusterer cl = new KMedoids(10, 20000, dm);
-
+		
+		// Temps d'execution pour récuperer les données
+		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		debut = System.currentTimeMillis();
+		
+		Clusterer cl = new KMedoids();
+		
 		System.out.println("Méthode utilisée : KMedoids"); 
-
-		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j));
 
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
+		
+		// Temps d'execution du clustering
+		System.out.println("Temps clustering : "+(System.currentTimeMillis()-debut)+" millisecondes");
 
-		for (int i = 0; i < clusters.length; i++) { 
-			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\KMedoidsoutput" + i + ".txt")); 
-		} 
+		for (int i = 0; i < clusters.length; i++) System.out.println("Cluster "+(i+1)+" : "+clusters[i].size());
+		
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
 
@@ -77,6 +80,4 @@ public class KMedoidsAlg {
 		eval = new SumOfAveragePairwiseSimilarities(); 
 		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
 	}
-
 }
-

@@ -21,6 +21,9 @@ public class KMeansAlg {
 
 	public static void main(String[] args) throws Exception {
 
+		// Calcul temps d'execution
+		long debut = System.currentTimeMillis();
+		
 		/*Create dateset*/
 		Dataset data = new DefaultDataset();
 		
@@ -31,16 +34,15 @@ public class KMeansAlg {
 		String[] values;
 		double idu, idi, k=0;
 		double note;
-		while ((line = br.readLine()) != null) {
+		while (k<400) {
+			line = br.readLine();
 			k++;
-			//if (k % 10000 == 0) System.out.println(k);
+			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
-//			if (!notes_items.containsKey(idi)) 	notes_items.put(idi, new HashMap());
-//			notes_items.get(idi).put(idu, note);			
+			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
 			double[] valeurs = new double[] { idi, idu, note };
 			/* Create instance*/
 			Instance instance = new DenseInstance(valeurs);
@@ -49,21 +51,22 @@ public class KMeansAlg {
 		
 		br.close();
 		
-		/* Load dataset */ 
-//		File f1 = new File("Donnees\\ratings.csv");
-//		Dataset data = FileHandler.loadDataset(f1, ","); 
+		// Temps d'execution pour récuperer les données
+		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		debut = System.currentTimeMillis();
 		
 		Clusterer cl = new KMeans();
+		
 		System.out.println("Méthode utilisée : KMeans"); 
-
-		for (int j = 0; j < data.size(); j++) System.out.println(data.get(j)); 
 
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
+		
+		// Temps d'execution du clustering
+		System.out.println("Temps clustering : "+(System.currentTimeMillis()-debut)+" millisecondes");
 
-		for (int i = 0; i < clusters.length; i++) { 
-			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\KMeansoutput" + i + ".txt")); 
-		} 
+		for (int i = 0; i < clusters.length; i++) System.out.println("Cluster "+(i+1)+" : "+clusters[i].size());
+		
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
 

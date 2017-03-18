@@ -17,7 +17,7 @@ public class HierarchiqueAscendante {
 	public static void main(String[] args) throws Exception { 
 
 		/* Load dataset */ 
-		DataSource source = new DataSource("C:\\Users\\Clément\\Desktop\\ml-latest-small\\ratingbis2.csv");
+		DataSource source = new DataSource("Donnees\\ratings.csv");
 		Instances instances = source.getDataSet();
 
 		HierarchicalClusterer HC = new HierarchicalClusterer();
@@ -25,21 +25,15 @@ public class HierarchiqueAscendante {
 
 		System.out.println("Méthode utilisée : "+HC.globalInfo()); 
 
-		//	for (int j = 0; j < HC.numberOfClusters(); j++) System.out.println(HC.get(j));
-		System.out.println("Clusters : \n"+HC.toString());
-		
-		
-		
 		/* The actual clustering of the data */
-		//	Dataset[] clusters = HC.cluster(data); 
-		//
-		//	for (int i = 0; i < clusters.length; i++) { 
-		//		FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\DBSCANoutput" + i + ".txt")); 
-		//	} 
+//		Dataset[] clusters = HC.cluster(data); 		
+//		for (int i = 0; i < HC.numberOfClusters(); i++) System.out.println("Cluster "+(i+1)+" : "+HC.;
+
+
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + HC.numberOfClusters()); 
 
-		
+
 		//	/* Create object for the evaluation of the clusters */ 
 		//	ClusterEvaluation eval;
 		//	/* Measuring the quality of the clusters (multiple measures) */ 
