@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
+import ClassExtraites.DensityBasedSpatialClustering;
 import net.sf.javaml.clustering.Clusterer;
-import net.sf.javaml.clustering.DensityBasedSpatialClustering;
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
 import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
 import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
