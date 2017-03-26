@@ -5,8 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
+import ClassExtraites.DensityBasedSpatialClustering;
+import ClassExtraites.KMeans;
 import net.sf.javaml.clustering.Clusterer;
-import net.sf.javaml.clustering.KMeans;
+
+
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
 import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
 import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
@@ -61,6 +64,9 @@ public class KMeansAlg {
 
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
+		
+		// Nombre d'iterations
+		System.out.println("Nombre iterations : "+((KMeans) cl).getIterationCount());
 		
 		// Temps d'execution du clustering
 		System.out.println("Temps clustering : "+(System.currentTimeMillis()-debut)+" millisecondes");
