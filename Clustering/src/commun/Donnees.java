@@ -5,10 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.core.SparseInstance;
 
@@ -39,7 +37,7 @@ public class Donnees {
 					if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
 					double[] valeurs = new double[] { idi, idu, note };
 					/* Create instance*/
-					Instance instance = new DenseInstance(valeurs);
+					Instance instance = new SparseInstance(valeurs);
 					data.add(instance);
 				}
 				
