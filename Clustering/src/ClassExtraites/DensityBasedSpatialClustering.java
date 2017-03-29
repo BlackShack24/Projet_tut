@@ -39,8 +39,13 @@ implements Clusterer
 		this.minPoints = minPoints;
 	}
 
+	long debut2;
+	
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
+		
+		debut2 = System.currentTimeMillis();
+		
 		HashSet<AbstractDensityBasedClustering.DataObject> usedSeeds = new HashSet();
 		List<AbstractDensityBasedClustering.DataObject> seedList = epsilonRangeQuery(this.epsilon, dataObject);
 		usedSeeds.addAll(seedList);
@@ -80,12 +85,15 @@ implements Clusterer
 			}
 			seedList.remove(0);
 		}
+		
+		debut2 = System.currentTimeMillis()-debut2;
+		
 		return true;
 	}
 
 	private Dataset originalData = null;
 
-	long debut, debut1, debut2;
+	
 	
 	public Dataset[] cluster(Dataset data)
 	{
@@ -100,7 +108,10 @@ implements Clusterer
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
 		
+		
 		Collections.shuffle(this.dataset);
+		
+		
 
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
@@ -111,7 +122,7 @@ implements Clusterer
 			}
 		}
 		
-		debut2 = System.currentTimeMillis()-debut2;
+		
 		
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
@@ -119,14 +130,6 @@ implements Clusterer
 	
 	public int getCompteurIteration() {
 		return compteurIteration;
-	}
-
-	public long getDebut() {
-		return debut;
-	}
-
-	public long getDebut1() {
-		return debut1;
 	}
 
 	public long getDebut2() {

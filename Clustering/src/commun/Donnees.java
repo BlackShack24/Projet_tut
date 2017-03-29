@@ -39,9 +39,9 @@ public class Donnees {
 					double[] valeurs = new double[] { idi, idu, note };
 					/* Create instance*/
 					Instance instance = new DenseInstance(valeurs);
+					
 					data.add(instance);
 				}
-				
 				br.close();
 
 				// Temps d'execution pour récuperer les données
