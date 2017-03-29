@@ -33,7 +33,7 @@ public class DBScan {
 		String[] values;
 		double idu, idi, k=0;
 		double note;
-		while (k<400) {
+		while (k<3000) {
 			line = br.readLine();
 			k++;
 			if (k % 10000 == 0) System.out.println(k);
