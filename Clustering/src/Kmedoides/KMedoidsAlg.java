@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.util.HashMap;
 
 import ClassExtraites.KMedoids;
+import commun.Donnees;
 import net.sf.javaml.clustering.Clusterer;
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
 import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
@@ -20,39 +21,9 @@ public class KMedoidsAlg {
 
 	public static void main(String[] args) throws Exception {
 
-		// Calcul temps d'execution
+		Donnees d = new Donnees();
+		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
-		
-		/*Create dateset*/
-		Dataset data = new DefaultDataset();
-		
-		HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
-		File f1 = new File("Donnees\\ratings.csv");
-		BufferedReader br = new BufferedReader(new FileReader(f1));
-		String line = br.readLine();
-		String[] values;
-		double idu, idi, k=0;
-		double note;
-		while (k<400) {
-			line = br.readLine();
-			k++;
-			if (k % 10000 == 0) System.out.println(k);
-			values = line.split(",");
-			idu = Double.parseDouble(values[0]);
-			idi = Double.parseDouble(values[1]);
-			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
-			double[] valeurs = new double[] { idi, idu, note };
-			/* Create instance*/
-			Instance instance = new DenseInstance(valeurs);
-			data.add(instance);
-		}
-		
-		br.close();
-		
-		// Temps d'execution pour récuperer les données
-		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
-		debut = System.currentTimeMillis();
 		
 		Clusterer cl = new KMedoids();
 		
