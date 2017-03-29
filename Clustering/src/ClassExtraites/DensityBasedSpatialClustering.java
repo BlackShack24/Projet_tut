@@ -40,7 +40,7 @@ implements Clusterer
 	}
 
 	long debut =0, debut2=0;
-	
+
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
 
@@ -63,11 +63,11 @@ implements Clusterer
 				i--;
 			}
 		}
-		
-		
-		
+
+
+
 		while (seedList.size() > 0) {
-			
+
 			AbstractDensityBasedClustering.DataObject seedListDataObject = (AbstractDensityBasedClustering.DataObject)seedList.get(0);
 			List<AbstractDensityBasedClustering.DataObject> seedListDataObject_Neighbourhood = epsilonRangeQuery(this.epsilon, seedListDataObject);
 			if (seedListDataObject_Neighbourhood.size() >= this.minPoints) {
@@ -87,11 +87,11 @@ implements Clusterer
 
 	private Dataset originalData = null;
 
-	
-	
+
+
 	public Dataset[] cluster(Dataset data)
 	{
-		
+
 		this.originalData = data;
 		if (this.dm == null) {
 			this.dm = new NormalizedEuclideanDistance(this.originalData);
@@ -101,7 +101,7 @@ implements Clusterer
 		for (int i = 0; i < data.size(); i++) {
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
-				
+
 		Collections.shuffle(this.dataset);
 
 		ArrayList<Dataset> output = new ArrayList();
@@ -112,13 +112,12 @@ implements Clusterer
 				this.clusterID += 1;
 			}
 		}
-		
-		
-		
+
+
+
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
 
-	
 	public int getCompteurIteration() {
 		return compteurIteration;
 	}
@@ -129,7 +128,7 @@ implements Clusterer
 	public long getDebut2() {
 		return getDebut3();
 	}
-	
+
 	private Dataset extract(int clusterID)
 	{
 		Dataset cluster = new DefaultDataset();

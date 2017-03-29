@@ -34,7 +34,8 @@ public class DBScan {
 		/* The actual clustering of the data */ 
 		Dataset[] clusters = cl.cluster(data); 
 		
-		System.out.println(" Temps : "+((DensityBasedSpatialClustering) cl).getDebut2());
+		System.out.println(" Temps 1 : "+((DensityBasedSpatialClustering) cl).getDebut());
+		System.out.println(" Temps 2 : "+((DensityBasedSpatialClustering) cl).getDebut2());
 		
 		// Nombre d'iterations
 		System.out.println("Nombre iterations : "+((DensityBasedSpatialClustering) cl).getCompteurIteration());
