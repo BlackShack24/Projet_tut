@@ -44,7 +44,7 @@ implements Clusterer
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
 		
-		debut = System.currentTimeMillis();
+		
 		
 		HashSet<AbstractDensityBasedClustering.DataObject> usedSeeds = new HashSet();
 		List<AbstractDensityBasedClustering.DataObject> seedList = epsilonRangeQuery(this.epsilon, dataObject);
@@ -65,6 +65,9 @@ implements Clusterer
 				i--;
 			}
 		}
+		
+		debut = System.currentTimeMillis();
+		
 		while (seedList.size() > 0)
 		{
 			AbstractDensityBasedClustering.DataObject seedListDataObject = (AbstractDensityBasedClustering.DataObject)seedList.get(0);
@@ -107,11 +110,8 @@ implements Clusterer
 		for (int i = 0; i < data.size(); i++) {
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
-		
-		
+				
 		Collections.shuffle(this.dataset);
-		
-		
 
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {

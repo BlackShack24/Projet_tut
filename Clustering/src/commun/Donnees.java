@@ -79,14 +79,12 @@ public class Donnees {
 		double indiv = donnes.get(0)[0];
 		Instance instance = new SparseInstance();
 		for(int i=0; i<donnes.size();i++){
-			if(donnes.get(i)[0]==indiv){
-				instance.put((int) donnes.get(i)[1], donnes.get(i)[2]);
-			}else{
+			if(donnes.get(i)[0]!=indiv) {
 				data.add(instance);
 				indiv = donnes.get(i)[0];
 				instance = new SparseInstance();
-				instance.put((int) donnes.get(i)[1], donnes.get(i)[2]);
 			}
+			instance.put((int) donnes.get(i)[1], donnes.get(i)[2]);
 		}
 		data.add(instance);
 		// Temps d'execution pour récuperer les données
