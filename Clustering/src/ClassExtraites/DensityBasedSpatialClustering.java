@@ -85,9 +85,12 @@ implements Clusterer
 
 	private Dataset originalData = null;
 
+	long debut, debut1, debut2;
+	
 	public Dataset[] cluster(Dataset data)
 	{
-		long debut = System.currentTimeMillis(); // time
+		debut = System.currentTimeMillis(); // time
+		
 		this.originalData = data;
 		if (this.dm == null) {
 			this.dm = new NormalizedEuclideanDistance(this.originalData);
@@ -98,13 +101,13 @@ implements Clusterer
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
 		
-		System.out.println("Temps 1 : "+(System.currentTimeMillis()-debut)+" millisecondes");
-		debut = System.currentTimeMillis();
+		debut = System.currentTimeMillis()-debut;
+		debut1 = System.currentTimeMillis();
 		
 		Collections.shuffle(this.dataset);
 
-		System.out.println("Temps 2 : "+(System.currentTimeMillis()-debut)+" millisecondes");
-		debut = System.currentTimeMillis();
+		debut1 = System.currentTimeMillis()-debut;
+		debut2 = System.currentTimeMillis();
 
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
@@ -118,8 +121,7 @@ implements Clusterer
 			}
 		}
 		
-		System.out.println("Temps 3 : "+(System.currentTimeMillis()-debut)+" millisecondes");
-		debut = System.currentTimeMillis();
+		debut2 = System.currentTimeMillis()-debut;
 		
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
@@ -127,6 +129,18 @@ implements Clusterer
 	
 	public int getCompteurIteration() {
 		return compteurIteration;
+	}
+
+	public long getDebut() {
+		return debut;
+	}
+
+	public long getDebut1() {
+		return debut1;
+	}
+
+	public long getDebut2() {
+		return debut2;
 	}
 
 	private Dataset extract(int clusterID)
