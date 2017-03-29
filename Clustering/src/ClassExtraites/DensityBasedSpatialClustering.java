@@ -87,6 +87,7 @@ implements Clusterer
 
 	public Dataset[] cluster(Dataset data)
 	{
+		long debut = System.currentTimeMillis(); // time
 		this.originalData = data;
 		if (this.dm == null) {
 			this.dm = new NormalizedEuclideanDistance(this.originalData);
@@ -96,7 +97,15 @@ implements Clusterer
 		for (int i = 0; i < data.size(); i++) {
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
+		
+		System.out.println("Temps 1 : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		debut = System.currentTimeMillis();
+		
 		Collections.shuffle(this.dataset);
+
+		System.out.println("Temps 2 : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		debut = System.currentTimeMillis();
+
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
 			
@@ -108,6 +117,10 @@ implements Clusterer
 				this.clusterID += 1;
 			}
 		}
+		
+		System.out.println("Temps 3 : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		debut = System.currentTimeMillis();
+		
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
 
