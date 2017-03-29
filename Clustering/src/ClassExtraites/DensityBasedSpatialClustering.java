@@ -39,12 +39,12 @@ implements Clusterer
 		this.minPoints = minPoints;
 	}
 
-	long debut2;
+	long debut =0, debut2=0;
 	
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
 		
-		debut2 = System.currentTimeMillis();
+		debut = System.currentTimeMillis();
 		
 		HashSet<AbstractDensityBasedClustering.DataObject> usedSeeds = new HashSet();
 		List<AbstractDensityBasedClustering.DataObject> seedList = epsilonRangeQuery(this.epsilon, dataObject);
@@ -86,7 +86,7 @@ implements Clusterer
 			seedList.remove(0);
 		}
 		
-		debut2 = System.currentTimeMillis()-debut2;
+		debut2 += System.currentTimeMillis()-debut;
 		
 		return true;
 	}
