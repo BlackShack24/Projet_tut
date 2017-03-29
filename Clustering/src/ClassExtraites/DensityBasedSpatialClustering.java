@@ -89,7 +89,6 @@ implements Clusterer
 	
 	public Dataset[] cluster(Dataset data)
 	{
-		debut = System.currentTimeMillis(); // time
 		
 		this.originalData = data;
 		if (this.dm == null) {
@@ -101,21 +100,12 @@ implements Clusterer
 			this.dataset.add(new AbstractDensityBasedClustering.DataObject(this, data.instance(i)));
 		}
 		
-		debut = System.currentTimeMillis()-debut;
-		debut1 = System.currentTimeMillis();
-		
 		Collections.shuffle(this.dataset);
-
-		debut1 = System.currentTimeMillis()-debut1;
-		debut2 = System.currentTimeMillis();
 
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
-			
-			if ((dataObject.clusterIndex == -1) && 
-					(expandCluster(dataObject)))
+			if ((dataObject.clusterIndex == -1) && (expandCluster(dataObject))) {
 				compteurIteration++;
-			{
 				output.add(extract(this.clusterID));
 				this.clusterID += 1;
 			}
