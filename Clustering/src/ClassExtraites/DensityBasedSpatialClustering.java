@@ -66,30 +66,27 @@ implements Clusterer
 			}
 		}
 		
-		debut = System.currentTimeMillis();
 		
-		while (seedList.size() > 0)
-		{
+		
+		while (seedList.size() > 0) {
 			AbstractDensityBasedClustering.DataObject seedListDataObject = (AbstractDensityBasedClustering.DataObject)seedList.get(0);
 			List<AbstractDensityBasedClustering.DataObject> seedListDataObject_Neighbourhood = epsilonRangeQuery(this.epsilon, seedListDataObject);
 			if (seedListDataObject_Neighbourhood.size() >= this.minPoints) {
-				for (int i = 0; i < seedListDataObject_Neighbourhood.size(); i++)
-				{
+				for (int i = 0; i < seedListDataObject_Neighbourhood.size(); i++) {
+					debut = System.currentTimeMillis(); // time
 					AbstractDensityBasedClustering.DataObject p = (AbstractDensityBasedClustering.DataObject)seedListDataObject_Neighbourhood.get(i);
-					if (((p.clusterIndex == -1) || (p.clusterIndex == -2)) && 
-							(p.clusterIndex == -1) && 
-							(!usedSeeds.contains(p)))
-					{
+					if (((p.clusterIndex == -1) || (p.clusterIndex == -2)) && (p.clusterIndex == -1) && (!usedSeeds.contains(p))) {
 						seedList.add(p);
 						usedSeeds.add(p);
 					}
+					debut2 += System.currentTimeMillis()-debut; // time
 					p.clusterIndex = this.clusterID;
 				}
 			}
 			seedList.remove(0);
 		}
 		
-		debut2 += System.currentTimeMillis()-debut;
+		
 		
 		return true;
 	}
