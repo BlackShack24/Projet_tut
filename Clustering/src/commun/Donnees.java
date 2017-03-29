@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
+import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.core.SparseInstance;
 
@@ -35,9 +36,9 @@ public class Donnees {
 					idi = Double.parseDouble(values[1]);
 					note = Double.parseDouble(values[2]);
 					if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
-					//double[] valeurs = new double[] { idi, idu, note };
+					double[] valeurs = new double[] { idi, idu, note };
 					/* Create instance*/
-					Instance instance = new SparseInstance();
+					Instance instance = new DenseInstance(valeurs);
 					data.add(instance);
 				}
 				
