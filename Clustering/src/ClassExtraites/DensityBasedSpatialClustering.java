@@ -99,9 +99,10 @@ implements Clusterer
 		Collections.shuffle(this.dataset);
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
-			compteurIteration++;
+			
 			if ((dataObject.clusterIndex == -1) && 
 					(expandCluster(dataObject)))
+				compteurIteration++;
 			{
 				output.add(extract(this.clusterID));
 				this.clusterID += 1;
