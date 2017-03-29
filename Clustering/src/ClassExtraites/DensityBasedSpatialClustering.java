@@ -106,7 +106,7 @@ implements Clusterer
 		
 		Collections.shuffle(this.dataset);
 
-		debut1 = System.currentTimeMillis()-debut;
+		debut1 = System.currentTimeMillis()-debut1;
 		debut2 = System.currentTimeMillis();
 
 		ArrayList<Dataset> output = new ArrayList();
@@ -121,7 +121,7 @@ implements Clusterer
 			}
 		}
 		
-		debut2 = System.currentTimeMillis()-debut;
+		debut2 = System.currentTimeMillis()-debut2;
 		
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
