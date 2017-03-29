@@ -43,12 +43,10 @@ public class Donnees {
 					data.add(instance);
 				}
 				br.close();
-
-				// Temps d'execution pour récuperer les données
-				System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
-				return data;
+		
+		return data;
 	}
-	
+
 	public Dataset extraireDonneesTest() throws Exception{
 		// Calcul temps d'execution
 		long debut = System.currentTimeMillis();
