@@ -26,7 +26,7 @@ public class Donnees {
 				String[] values;
 				double idu, idi, k=0;
 				double note;
-				while (k<100) {
+				while (k<300) {
 					line = br.readLine();
 					k++;
 					if (k % 10000 == 0) System.out.println(k);
