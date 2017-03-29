@@ -69,8 +69,9 @@ implements Clusterer
 		
 		
 		while (seedList.size() > 0) {
-			debut = System.currentTimeMillis(); // time
+			
 			AbstractDensityBasedClustering.DataObject seedListDataObject = (AbstractDensityBasedClustering.DataObject)seedList.get(0);
+			debut = System.currentTimeMillis(); // time
 			List<AbstractDensityBasedClustering.DataObject> seedListDataObject_Neighbourhood = epsilonRangeQuery(this.epsilon, seedListDataObject);
 			debut2 += System.currentTimeMillis()-debut; // time
 			if (seedListDataObject_Neighbourhood.size() >= this.minPoints) {
