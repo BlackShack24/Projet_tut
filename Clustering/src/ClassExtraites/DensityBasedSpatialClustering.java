@@ -39,7 +39,7 @@ implements Clusterer
 		this.minPoints = minPoints;
 	}
 
-	long debut =0, debut2=0;
+//	long debut =0, debut2=0;
 
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
@@ -124,9 +124,6 @@ implements Clusterer
 
 	public long getDebut() {
 		return getDebut1();
-	}
-	public long getDebut2() {
-		return getDebut3();
 	}
 
 	private Dataset extract(int clusterID)

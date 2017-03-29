@@ -51,10 +51,9 @@ abstract class AbstractDensityBasedClustering
 
 	Vector<DataObject> dataset = null;
 
-	long debut=0, debut1=0, debut2=0, debut3=0;
+	long debut=0, debut1=0;
 
-	List<DataObject> epsilonRangeQuery(double epsilon, DataObject inst)
-	{
+	List<DataObject> epsilonRangeQuery(double epsilon, DataObject inst) {
 		ArrayList<DataObject> epsilonRange_List = new ArrayList();
 
 		for (int i = 0; i < this.dataset.size(); i++)
@@ -63,9 +62,7 @@ abstract class AbstractDensityBasedClustering
 			debut = System.currentTimeMillis(); // time
 			double distance = this.dm.measure(tmp.instance, inst.instance);
 			debut1 += System.currentTimeMillis()-debut; // time
-			debut2 = System.currentTimeMillis(); // time
 			if (distance < epsilon) epsilonRange_List.add(tmp);
-			debut3 += System.currentTimeMillis()-debut2; // time
 		}
 		return epsilonRange_List;
 	}
@@ -73,13 +70,5 @@ abstract class AbstractDensityBasedClustering
 	public long getDebut1() {
 		return debut1;
 	}
-
-	public long getDebut3() {
-		return debut3;
-	}
-
-
-
-
 
 }

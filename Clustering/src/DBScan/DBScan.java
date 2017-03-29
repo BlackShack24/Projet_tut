@@ -15,6 +15,7 @@ import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
+import net.sf.javaml.distance.ManhattanDistance;
 
 
 public class DBScan {
@@ -27,7 +28,8 @@ public class DBScan {
 		 long debut = System.currentTimeMillis();
 		
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
-		Clusterer cl = new DensityBasedSpatialClustering();
+		ManhattanDistance dm = null;
+		Clusterer cl = new DensityBasedSpatialClustering(0.1D, 6, dm);
 
 		System.out.println("Méthode utilisée : DBSCAN"); 
 
@@ -35,7 +37,6 @@ public class DBScan {
 		Dataset[] clusters = cl.cluster(data); 
 		
 		System.out.println(" Temps 1 : "+((DensityBasedSpatialClustering) cl).getDebut());
-		System.out.println(" Temps 2 : "+((DensityBasedSpatialClustering) cl).getDebut2());
 		
 		// Nombre d'iterations
 		System.out.println("Nombre iterations : "+((DensityBasedSpatialClustering) cl).getCompteurIteration());
