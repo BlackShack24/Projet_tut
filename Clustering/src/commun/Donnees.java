@@ -35,9 +35,9 @@ public class Donnees {
 					idi = Double.parseDouble(values[1]);
 					note = Double.parseDouble(values[2]);
 					if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
-					double[] valeurs = new double[] { idi, idu, note };
+					//double[] valeurs = new double[] { idi, idu, note };
 					/* Create instance*/
-					Instance instance = new SparseInstance(valeurs);
+					Instance instance = new SparseInstance();
 					data.add(instance);
 				}
 				
