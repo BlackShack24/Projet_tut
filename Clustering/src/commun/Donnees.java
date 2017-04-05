@@ -69,7 +69,7 @@ public class Donnees {
 			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
 			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a		
-			double[] valeurs = new double[] { idi, idu, note };
+			double[] valeurs = new double[] { idu, idi, note };
 			/* Create instance*/
 			donnes.add(valeurs);
 			k++;
@@ -89,6 +89,15 @@ public class Donnees {
 		data.add(instance);
 		// Temps d'execution pour récuperer les données
 		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		this.printData(data);
 		return data;
+	}
+	
+	public void printData(Dataset d){
+		
+		System.out.println("Nombre attributs : "+d.noAttributes());
+		System.out.println("Taille : "+d.size());
+		
+		
 	}
 }
