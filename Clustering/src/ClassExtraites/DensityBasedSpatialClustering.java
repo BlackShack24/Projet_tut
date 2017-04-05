@@ -113,8 +113,6 @@ implements Clusterer
 			}
 		}
 
-
-
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
 
