@@ -61,12 +61,16 @@ public class Donnees {
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
 		// boucle de parcours du fichier
+		double idimax = 0;
 		while(k<100){ //3627 = 20 user
 			line = br.readLine();
 			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
+			if(idi > idimax){
+				idimax = idi;
+			}
 			note = Double.parseDouble(values[2]);
 			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a		
 			double[] valeurs = new double[] { idu, idi, note };
@@ -75,6 +79,7 @@ public class Donnees {
 			k++;
 		}
 		br.close();
+		System.out.println("idfilmMax : " + idimax);
 		// tri de l ArrayList
 		double indiv = donnes.get(0)[0];
 		Instance instance = new SparseInstance();
@@ -95,20 +100,22 @@ public class Donnees {
 	
 	public void printData(Dataset d){
 		
-		System.out.println("Nombre attributs : "+d.noAttributes());
-		System.out.println("Taille : "+d.size());
-		System.out.println(d);
+//		System.out.println("Nombre attributs : "+d.noAttributes());
+//		System.out.println("Taille : "+d.size());
+//		System.out.println(d);
 		System.out.println("------------INSTANCE-------------");
 		Instance i = d.get(0);
 		System.out.println("Nombre attribut de l 'instance : "+i.noAttributes());
 		System.out.println("Taille de l'instance : "+i.size());
 		System.out.println(i);
-		for(int j=0; j<i.noAttributes();j++){
-			if(i.value(j)!=0){
-				System.out.println("Valeur "+j+" : "+i.value(j));
-			}
-			
-		}
+//		for(int j=0; j<i.noAttributes();j++){
+//			if(i.value(j)!=0){
+//				System.out.println("Valeur "+j+" : "+i.value(j));
+//			}
+//			
+//		}
+		System.out.println(d.get(1).noAttributes());
+		System.out.println(d.get(1));
 		System.out.println("----------------------------------");
 		
 	}
