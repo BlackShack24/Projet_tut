@@ -89,6 +89,15 @@ public class Donnees {
 		data.add(instance);
 		// Temps d'execution pour récuperer les données
 		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
+		this.printData(data);
 		return data;
+	}
+	
+	public void printData(Dataset d){
+		
+		System.out.println("Nombre attributs : "+d.noAttributes());
+		System.out.println("Taille : "+d.size());
+		
+		
 	}
 }

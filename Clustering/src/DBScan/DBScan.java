@@ -24,7 +24,7 @@ public class DBScan {
 
 		Donnees d = new Donnees();
 		
-		Dataset data = d.extraireDonnees();
+		Dataset data = d.extraireDonneesTest();
 		 long debut = System.currentTimeMillis();
 		
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
@@ -49,14 +49,16 @@ public class DBScan {
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length);
 
-		/* Create object for the evaluation of the clusters */ 
-		ClusterEvaluation eval;
-		/* Measuring the quality of the clusters (multiple measures) */ 
-		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
-		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
-		eval = new SumOfCentroidSimilarities(); 
-		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
-		eval = new SumOfAveragePairwiseSimilarities(); 
-		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+
+//		/* Create object for the evaluation of the clusters */ 
+//		ClusterEvaluation eval;
+//		/* Measuring the quality of the clusters (multiple measures) */ 
+//		eval = new SumOfSquaredErrors(); // Somme des carrées des résidus
+//		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+//		eval = new SumOfCentroidSimilarities(); 
+//		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+//		eval = new SumOfAveragePairwiseSimilarities(); 
+//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+
 	}
 }
