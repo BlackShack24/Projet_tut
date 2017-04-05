@@ -14,7 +14,7 @@ public class KMeansAlg {
 		Dataset data = d.extraireDonneesTest();
 		long debut = System.currentTimeMillis();
 
-		Clusterer cl = new KMeans(2,10);
+		Clusterer cl = new KMeans(4,10);
 
 		System.out.println("Méthode utilisée : KMeans"); 
 
