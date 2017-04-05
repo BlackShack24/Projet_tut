@@ -29,7 +29,7 @@ public class DBScan {
 		
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
 		ManhattanDistance dm = null;
-		Clusterer cl = new DensityBasedSpatialClustering(0.1D, 6, dm);
+		Clusterer cl = new DensityBasedSpatialClustering();
 
 		System.out.println("Méthode utilisée : DBSCAN"); 
 

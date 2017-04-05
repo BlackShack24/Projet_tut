@@ -61,7 +61,7 @@ public class Donnees {
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
 		// boucle de parcours du fichier
-		while(k<100){
+		while(k<3627){
 			line = br.readLine();
 			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
@@ -80,7 +80,6 @@ public class Donnees {
 		Instance instance = new SparseInstance();
 		for(int i=0; i<donnes.size();i++){
 			if(donnes.get(i)[0]!=indiv) {
-				data.add(instance);
 				indiv = donnes.get(i)[0];
 				instance = new SparseInstance();
 			}
@@ -98,6 +97,15 @@ public class Donnees {
 		System.out.println("Nombre attributs : "+d.noAttributes());
 		System.out.println("Taille : "+d.size());
 		
+		System.out.println("------------INSTANCE-------------");
+		Instance i = d.get(0);
+		System.out.println("Nombre attribut de l 'instance : "+i.noAttributes());
+		System.out.println("Taille de l'instance : "+i.size());
+		System.out.println(i);
+		for(int j=0; j<i.noAttributes();j++){
+			System.out.println("Valeur "+j+" : "+i.value(j));
+		}
+		System.out.println("----------------------------------");
 		
 	}
 }
