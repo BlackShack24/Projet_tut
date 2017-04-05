@@ -61,7 +61,7 @@ public class Donnees {
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
 		// boucle de parcours du fichier
-		while(k<300){ //3627 = 20 user
+		while(k<100){ //3627 = 20 user
 			line = br.readLine();
 			if (k % 10000 == 0) System.out.println(k);
 			values = line.split(",");
