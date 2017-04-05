@@ -1,25 +1,10 @@
 package Kmeans;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.util.HashMap;
-
-import ClassExtraites.DensityBasedSpatialClustering;
-import ClassExtraites.KMeans;
-import commun.Donnees;
 import net.sf.javaml.clustering.Clusterer;
-
-
-import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
-import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
-import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
-import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
 import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.Instance;
-import net.sf.javaml.tools.data.FileHandler;
+import ClassExtraites.KMeans;
+
+import commun.Donnees;
 
 public class KMeansAlg {
 
