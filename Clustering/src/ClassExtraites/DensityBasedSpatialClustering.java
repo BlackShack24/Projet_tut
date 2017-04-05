@@ -39,8 +39,6 @@ implements Clusterer
 		this.minPoints = minPoints;
 	}
 
-//	long debut =0, debut2=0;
-
 	private boolean expandCluster(AbstractDensityBasedClustering.DataObject dataObject)
 	{
 
@@ -106,14 +104,13 @@ implements Clusterer
 
 		ArrayList<Dataset> output = new ArrayList();
 		for (AbstractDensityBasedClustering.DataObject dataObject : this.dataset) {
-			if ((dataObject.clusterIndex == -1) && (expandCluster(dataObject))) {
+			if ((dataObject.clusterIndex == -1) 
+					&& (expandCluster(dataObject))) {
 				compteurIteration++;
 				output.add(extract(this.clusterID));
 				this.clusterID += 1;
 			}
 		}
-
-
 
 		return (Dataset[])output.toArray(new Dataset[0]);
 	}
