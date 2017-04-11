@@ -23,12 +23,13 @@ public class DBScan {
 	public static void main(String[] args) throws Exception { 
 
 		Donnees d = new Donnees();
-		
-		Dataset data = d.extraireDonnees();
-		 long debut = System.currentTimeMillis();
+
+		Dataset data = d.extraireDonneesTest();
+		long debut = System.currentTimeMillis();
 		
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
-		ManhattanDistance dm = null;
+//		ManhattanDistance dm = null;
+
 		Clusterer cl = new DensityBasedSpatialClustering();
 
 		System.out.println("Méthode utilisée : DBSCAN"); 

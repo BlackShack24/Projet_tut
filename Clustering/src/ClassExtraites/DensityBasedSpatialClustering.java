@@ -62,8 +62,6 @@ implements Clusterer
 			}
 		}
 
-
-
 		while (seedList.size() > 0) {
 
 			AbstractDensityBasedClustering.DataObject seedListDataObject = (AbstractDensityBasedClustering.DataObject)seedList.get(0);
