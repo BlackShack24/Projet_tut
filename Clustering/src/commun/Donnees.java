@@ -95,6 +95,7 @@ public class Donnees {
 					iduprec = idu;
 				}
 			}
+			// on doit regrouper les ID film ensembles 
 			double[] valeurs = new double[] { idu, idi, note };
 			/* Create instance*/
 			donnes.add(valeurs);
