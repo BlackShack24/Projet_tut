@@ -60,6 +60,8 @@ public class Donnees {
 		double idu, idi, k=0;
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
+		
+		
 		// boucle de parcours du fichier
 		double idimax = 0;
 		while(k<100){ //3627 = 20 user
@@ -80,6 +82,8 @@ public class Donnees {
 		}
 		br.close();
 		System.out.println("idfilmMax : " + idimax);
+		
+		
 		// tri de l ArrayList
 		double indiv = donnes.get(0)[0];
 		Instance instance = new SparseInstance();
