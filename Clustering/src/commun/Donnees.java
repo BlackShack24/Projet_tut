@@ -55,35 +55,69 @@ public class Donnees {
 		// creation du fichier
 		File f1 = new File("Donnees\\ratings.csv");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
+		BufferedReader br2 = new BufferedReader(new FileReader(f1));
 		String line = br.readLine();
+		String line2 = br2.readLine();
 		String[] values;
-		double idu, idi, k=0;
+		double idu, idi;
+		int k=0, l=0;
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
 		
 		
 		// boucle de parcours du fichier
 		double idimax = 0;
-		while(k<100){ //3627 = 20 user
-			line = br.readLine();
-			if (k % 10000 == 0) System.out.println(k);
-			values = line.split(",");
-			idu = Double.parseDouble(values[0]);
+		// on recupere l idfilmMax
+		while(l<200){
+			line2 = br2.readLine();
+			values = line2.split(",");
 			idi = Double.parseDouble(values[1]);
 			if(idi > idimax){
 				idimax = idi;
 			}
+			l++;
+		}
+		br2.close();
+		System.out.println("idfilmMax : " + idimax);
+		
+		double iduprec = 1;
+		while(k<200){ //3627 = 20 user
+			line = br.readLine();
+			//if (k % 10000 == 0) System.out.println(k);
+			values = line.split(",");
+			idu = Double.parseDouble(values[0]);
+			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a		
+			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
+			if(iduprec != idu){
+				System.out.println("Test1");
+				if(donnes.get(k-1)[1] != idimax){
+					System.out.println("Test2");
+					double[] valeurs = new double[] { iduprec, idimax, 0};
+					iduprec = idu;
+				}
+			}
+			// on doit regrouper les ID film ensembles 
 			double[] valeurs = new double[] { idu, idi, note };
 			/* Create instance*/
 			donnes.add(valeurs);
 			k++;
 		}
 		br.close();
+
 		System.out.println("idfilmMax : " + idimax);
 		
-		
+
+
+		// on ajoute une valeur pour la note du "dernier" film si il n'y en a pas
+		double user = donnes.get(0)[0];
+		for(int i=0;i<donnes.size();i++){
+			if(donnes.get(i)[0] !=user){
+				if(donnes.get(i-1)[1] != idimax){
+					
+				}
+			}
+		}
 		// tri de l ArrayList
 		double indiv = donnes.get(0)[0];
 		Instance instance = new SparseInstance();
@@ -105,7 +139,7 @@ public class Donnees {
 	public void printData(Dataset d){
 		
 //		System.out.println("Nombre attributs : "+d.noAttributes());
-//		System.out.println("Taille : "+d.size());
+		System.out.println("Taille : "+d.size());
 //		System.out.println(d);
 		System.out.println("------------INSTANCE-------------");
 		Instance i = d.get(0);
@@ -120,6 +154,10 @@ public class Donnees {
 //		}
 		System.out.println(d.get(1).noAttributes());
 		System.out.println(d.get(1));
+		System.out.println(d.get(2).noAttributes());
+		System.out.println(d.get(2));
+		System.out.println(d.get(3).noAttributes());
+		System.out.println(d.get(2));
 		System.out.println("----------------------------------");
 		
 	}
