@@ -148,6 +148,16 @@ implements Clusterer
 		return iterationCount;
 	}
 
-
+	// Vérifier si il est utile de calculer la distance entre 2 instances
+//	public boolean verifComparaison(Instance x, Instance y) {
+//		int compteur = 0, i = 0, j = 0;
+//		
+//		while(i < x.size() || j < y.size()) {
+//			if(x. == )
+//		}
+//		
+//		if(compteur < 10) return false;
+//		return true;
+//	}
 
 }

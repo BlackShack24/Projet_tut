@@ -31,7 +31,8 @@ public class DataTest {
 		double note;
 		HashMap<Double,Double[]> donnes = new HashMap<>();
 		double indiv = 0;
-		Instance i = null;
+		Instance i = null, j = null;
+		
 		while (k<200) {
 			line = br.readLine();
 			k++;
@@ -46,19 +47,22 @@ public class DataTest {
 			/* Create instance*/
 
 			donnes.put(idi, valeurs);
-			if(indiv == 0){
-				i = new SparseInstance();
+			if(indiv == 0 || idi != indiv){
+				if(idi != indiv) data.add(i);	// Ajout de l'instance-film dans le Dataset	
+				i = new SparseInstance(); 		// Nouvelle instance-film
+//				i.add(idi);						// Ajout de l'ID du film dans cette instance
 				indiv = idi;
-			}else{
-				if(idi != indiv){
-					data.add(i);
-					indiv = idi;
-					i = new SparseInstance();
-				}
 			}
+			
 			i.put((int) valeurs[0].intValue(), valeurs[1]);
-			data.add(i);
+			
+//			j = new SparseInstance();			// Nouvelle instance-utilisateur
+//			j.add(idu);							// Ajout de l'ID de l'utilisateur dans cette instance
+//			j.add(note);						// Ajout de la note dans cette instance
+//			i.add(j);							// Ajout de l'instance-utilisateur dans l'instance-film
+			//data.add(i);						
 		}
+		data.add(i);
 		br.close();
 
 		this.printData(data);
