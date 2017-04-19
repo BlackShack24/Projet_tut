@@ -1,6 +1,9 @@
 package ClassExtraites;
 
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Set;
+
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
@@ -74,11 +77,13 @@ implements Clusterer
 				double minDistance = this.dm.measure(this.centroids[0], data.instance(i));
 				for (int j = 1; j < this.centroids.length; j++)
 				{
-					double dist = this.dm.measure(this.centroids[j], data.instance(i));
-					if (this.dm.compare(dist, minDistance))
-					{
-						minDistance = dist;
-						tmpCluster = j;
+					if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
+						double dist = this.dm.measure(this.centroids[j], data.instance(i));
+						if (this.dm.compare(dist, minDistance))
+						{
+							minDistance = dist;
+							tmpCluster = j;
+						}
 					}
 				}
 				assignment[i] = tmpCluster;
@@ -132,11 +137,13 @@ implements Clusterer
 			double minDistance = this.dm.measure(this.centroids[0], data.instance(i));
 			for (int j = 0; j < this.centroids.length; j++)
 			{
-				double dist = this.dm.measure(this.centroids[j], data.instance(i));
-				if (this.dm.compare(dist, minDistance))
-				{
-					minDistance = dist;
-					tmpCluster = j;
+				if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
+					double dist = this.dm.measure(this.centroids[j], data.instance(i));
+					if (this.dm.compare(dist, minDistance))
+					{
+						minDistance = dist;
+						tmpCluster = j;
+					}
 				}
 			}
 			output[tmpCluster].add(data.instance(i));
@@ -149,15 +156,17 @@ implements Clusterer
 	}
 
 	// Vérifier si il est utile de calculer la distance entre 2 instances
-//	public boolean verifComparaison(Instance x, Instance y) {
-//		int compteur = 0, i = 0, j = 0;
-//		
-//		while(i < x.size() || j < y.size()) {
-//			if(x. == )
-//		}
-//		
-//		if(compteur < 10) return false;
-//		return true;
-//	}
+	public boolean verifComparaison(Instance x, Instance y) {
+		int compteur = 0;
+		Set cles = x.keySet();
+		Iterator it = cles.iterator();
+
+		while(it.hasNext()) {
+			if(y.containsKey(it)) compteur++;
+		}
+
+		if(compteur < 10) return false;
+		return true;
+	}
 
 }
