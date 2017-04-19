@@ -59,9 +59,9 @@ abstract class AbstractDensityBasedClustering
 		for (int i = 0; i < this.dataset.size(); i++)
 		{		
 			DataObject tmp = (DataObject)this.dataset.get(i);
-			debut = System.currentTimeMillis(); // time
+//			debut = System.currentTimeMillis(); // time
 			double distance = this.dm.measure(tmp.instance, inst.instance);
-			debut1 += System.currentTimeMillis()-debut; // time
+//			debut1 += System.currentTimeMillis()-debut; // time
 			if (distance < epsilon) epsilonRange_List.add(tmp);
 		}
 		return epsilonRange_List;

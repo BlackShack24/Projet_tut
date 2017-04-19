@@ -63,6 +63,8 @@ public class Donnees {
 		int k=0, l=0;
 		double note;
 		ArrayList<double[]> donnes = new ArrayList<double[]>();
+		
+		
 		// boucle de parcours du fichier
 		double idimax = 0;
 		// on recupere l idfilmMax
@@ -102,6 +104,10 @@ public class Donnees {
 			k++;
 		}
 		br.close();
+
+		System.out.println("idfilmMax : " + idimax);
+		
+
 
 		// on ajoute une valeur pour la note du "dernier" film si il n'y en a pas
 		double user = donnes.get(0)[0];

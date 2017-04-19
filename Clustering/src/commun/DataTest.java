@@ -38,40 +38,46 @@ public class DataTest {
 		// la seconde contiens en clef les idu et en valeur le film.
 		int nbF = 0;
 		while (k<100000) {
-			line = br.readLine();
-			values = line.split("\t");
-			//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
-			idu = Double.parseDouble(values[0]);
-			idi = Double.parseDouble(values[1]);
-			note = Double.parseDouble(values[2]);
-			if(notes_items.containsKey((int)idi)){
-				// la map contiens le film
-				// on recupere la liste des notes pour ce film
-				Instance i = notes_items.get((int) idi);
-				// on ajoute l utilisateur et la note lue
-				i.put((int) idu, note);
-				// on part du principe qu'il n'y a pas un utilisateur qui note 2x un film
-			}else{
-				// la map ne contiens pas le film
-				// on cree une Instance
-				Instance i = new SparseInstance();
-				// on ajoute la note de l utilisateur pour le film
-				i.put((int) idu, note);
-				// on ajoute le film a la liste des film
-				notes_items.put((int)idi, i);
-				//System.out.println("Pas dans la map");
-				nbF ++;
-			}
-			k++;
-		}
-		System.out.println("Nombre de films : "+nbF);
-		// une fois la Hashmap remplie on va tout mettre dans la liste Data
-		for(int i=0;i<notes_items.size();i++){
-			data.add(notes_items.get(i+1));
-		}
-		System.out.println("Hashmap taille : "+notes_items.size());
-		System.out.println("Data taille :"+data.size());
-		return null;
-	}
 
+			while (k<200) {
+				line = br.readLine();
+				values = line.split("\t");
+				//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
+				idu = Double.parseDouble(values[0]);
+				idi = Double.parseDouble(values[1]);
+				note = Double.parseDouble(values[2]);
+				if(notes_items.containsKey((int)idi)){
+					// la map contiens le film
+					// on recupere la liste des notes pour ce film
+					Instance i = notes_items.get((int) idi);
+					// on ajoute l utilisateur et la note lue
+					i.put((int) idu, note);
+					// on part du principe qu'il n'y a pas un utilisateur qui note 2x un film
+				}else{
+					// la map ne contiens pas le film
+					// on cree une Instance
+					Instance i = new SparseInstance();
+					// on ajoute la note de l utilisateur pour le film
+					i.put((int) idu, note);
+					// on ajoute le film a la liste des film
+					notes_items.put((int)idi, i);
+					//System.out.println("Pas dans la map");
+					nbF ++;
+				}
+				k++;
+			}
+			System.out.println("Nombre de films : "+nbF);
+			// une fois la Hashmap remplie on va tout mettre dans la liste Data
+			for(int i=0;i<notes_items.size();i++){
+				data.add(notes_items.get(i+1));
+			}
+			System.out.println("Hashmap taille : "+notes_items.size());
+			System.out.println("Data taille :"+data.size());
+
+			br.close();
+
+			return null;
+		}
+
+	}
 }
