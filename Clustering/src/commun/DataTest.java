@@ -25,69 +25,53 @@ public class DataTest {
 		//HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
 		File f1 = new File("Donnees\\u.data");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
-		String line;
+		String line = "";
 		String[] values;
 		double idu, idi, k=0;
 		double note;
-		HashMap<Double,Double[]> donnes = new HashMap<>();
 		double indiv = 0;
-		Instance i = null;
-		while (k<200) {
+		// l objet data est un objet qui se comporte comme une liste
+		// on passe donc par une hashmap pour que les film soient triés 
+		// meme si dans le fichier il ne sont pas triés
+		HashMap<Integer, Instance> notes_items = new HashMap<>();
+		// l instance I va avoir comme clef les idFilm lies a une Instance
+		// la seconde contiens en clef les idu et en valeur le film.
+		int nbF = 0;
+		while (k<100000) {
 			line = br.readLine();
-			k++;
-			if (k % 10000 == 0) System.out.println(k);
 			values = line.split("\t");
+			//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
-			Double[] valeurs = new Double[] { idu, note };
-			System.out.println(idi);
-			/* Create instance*/
-
-			donnes.put(idi, valeurs);
-			if(indiv == 0){
-				i = new SparseInstance();
-				indiv = idi;
+			if(notes_items.containsKey((int)idi)){
+				// la map contiens le film
+				// on recupere la liste des notes pour ce film
+				Instance i = notes_items.get((int) idi);
+				// on ajoute l utilisateur et la note lue
+				i.put((int) idu, note);
+				// on part du principe qu'il n'y a pas un utilisateur qui note 2x un film
 			}else{
-				if(idi != indiv){
-					data.add(i);
-					indiv = idi;
-					i = new SparseInstance();
-				}
+				// la map ne contiens pas le film
+				// on cree une Instance
+				Instance i = new SparseInstance();
+				// on ajoute la note de l utilisateur pour le film
+				i.put((int) idu, note);
+				// on ajoute le film a la liste des film
+				notes_items.put((int)idi, i);
+				//System.out.println("Pas dans la map");
+				nbF ++;
 			}
-			i.put((int) valeurs[0].intValue(), valeurs[1]);
-			data.add(i);
+			k++;
 		}
-		br.close();
-
-		this.printData(data);
+		System.out.println("Nombre de films : "+nbF);
+		// une fois la Hashmap remplie on va tout mettre dans la liste Data
+		for(int i=0;i<notes_items.size();i++){
+			data.add(notes_items.get(i+1));
+		}
+		System.out.println("Hashmap taille : "+notes_items.size());
+		System.out.println("Data taille :"+data.size());
 		return null;
 	}
 
-	public void printData(Dataset d){
-
-		//		System.out.println("Nombre attributs : "+d.noAttributes());
-		System.out.println("Taille : "+d.size());
-		//		System.out.println(d);
-		System.out.println("------------INSTANCE-------------");
-		Instance i = d.get(0);
-		System.out.println("Nombre attribut de l 'instance : "+i.noAttributes());
-		System.out.println("Taille de l'instance : "+i.size());
-		System.out.println(i);
-		//		for(int j=0; j<i.noAttributes();j++){
-		//			if(i.value(j)!=0){
-		//				System.out.println("Valeur "+j+" : "+i.value(j));
-		//			}
-		//			
-		//		}
-		System.out.println(d.get(1).noAttributes());
-		System.out.println(d.get(1));
-		System.out.println(d.get(2).noAttributes());
-		System.out.println(d.get(2));
-		System.out.println(d.get(3).noAttributes());
-		System.out.println(d.get(2));
-		System.out.println("----------------------------------");
-
-	}
 }
