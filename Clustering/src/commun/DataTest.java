@@ -76,8 +76,9 @@ public class DataTest {
 
 			br.close();
 
-			return null;
+			
 		}
+		return data;
 
 	}
 }
