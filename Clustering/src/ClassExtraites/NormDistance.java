@@ -1,0 +1,38 @@
+package ClassExtraites;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.distance.AbstractDistance;
+
+public class NormDistance
+extends AbstractDistance
+{
+	private static final long serialVersionUID = 3431231902618783080L;
+	private double power;
+
+	public NormDistance()
+	{
+		this(2.0D);
+	}
+
+	public NormDistance(double power)
+	{
+		this.power = power;
+	}
+
+	public double measure(Instance x, Instance y)
+	{
+		assert (x.noAttributes() == y.noAttributes());
+		double sum = 0.0D;
+
+		if(x.noAttributes() >= 10) {
+			for (int i = 0; i < x.noAttributes(); i++) {
+				sum += Math.pow(Math.abs(y.value(i) - x.value(i)), this.power);
+			}
+		}
+		return Math.pow(sum, 1.0D / this.power);
+	}
+
+}

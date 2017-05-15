@@ -156,17 +156,17 @@ implements Clusterer
 	}
 
 	// Vérifier si il est utile de calculer la distance entre 2 instances
-	public boolean verifComparaison(Instance x, Instance y) {
-		int compteur = 0;
-		Set cles = x.keySet();
-		Iterator it = cles.iterator();
-
-		while(it.hasNext()) {
-			if(y.containsKey(it)) compteur++;
-		}
-
-		if(compteur < 10) return false;
-		return true;
-	}
+//	public boolean verifComparaison(Instance x, Instance y) {
+//		int compteur = 0;
+//		Set cles = x.keySet();
+//		Iterator it = cles.iterator();
+//
+//		while(it.hasNext()) {
+//			if(y.containsKey(it)) compteur++;
+//		}
+//
+//		if(compteur < 10) return false;
+//		return true;
+//	}
 
 }
