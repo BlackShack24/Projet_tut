@@ -34,7 +34,7 @@ extends AbstractDistance
 			while(it.hasNext()) {
 				if(y.containsKey(it)) {
 					compteur++;
-					sum += Math.pow(Math.abs(x.get(it) - y.get(it)), this.power);
+					sum += Math.pow(Math.abs(x.get(it) - y.get(it)), this.power);	
 				}
 			}
 		}
