@@ -26,11 +26,14 @@ extends AbstractDistance
 	{
 		assert (x.noAttributes() == y.noAttributes());
 		double sum = 0.0D;
-
-		if(x.noAttributes() >= 10) {
+		System.out.println("Test");
+		if(x.noAttributes() >= 5) {
 			for (int i = 0; i < x.noAttributes(); i++) {
 				sum += Math.pow(Math.abs(y.value(i) - x.value(i)), this.power);
+				System.out.println("NormDistance if l33");
 			}
+		}else{
+			System.out.println("NormDistance ligne 35");
 		}
 		return Math.pow(sum, 1.0D / this.power);
 	}
