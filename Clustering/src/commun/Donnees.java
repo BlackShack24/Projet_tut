@@ -21,7 +21,7 @@ public class Donnees {
 		Dataset data = new DefaultDataset();
 
 		//HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
-		File f1 = new File("Donnees\\u.data");
+		File f1 = new File("Clustering.Donnees\\u.data");
 		BufferedReader br = new BufferedReader(new FileReader(f1));
 		String line = "";
 		String[] values;

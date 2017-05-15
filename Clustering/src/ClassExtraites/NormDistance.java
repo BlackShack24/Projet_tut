@@ -43,4 +43,5 @@ extends AbstractDistance
 		System.out.println("Compteur : "+compteur);
 		return Math.pow(sum, 1.0D / this.power);
 	}
+	
 }
