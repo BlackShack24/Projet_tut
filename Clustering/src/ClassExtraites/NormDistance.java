@@ -1,8 +1,5 @@
 package ClassExtraites;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.AbstractDistance;
 
