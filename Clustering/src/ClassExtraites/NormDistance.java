@@ -40,7 +40,7 @@ extends AbstractDistance
 		}
 		else return 10000.0;
 		if(compteur < 5) return 10000.0;
-		
+		System.out.println("Compteur : "+compteur);
 		return Math.pow(sum, 1.0D / this.power);
 	}
 }
