@@ -1,17 +1,14 @@
 package ClassExtraites;
 
-import java.util.Iterator;
 import java.util.Random;
-import java.util.Set;
 
+import net.sf.javaml.clustering.Clusterer;
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.DistanceMeasure;
-import net.sf.javaml.distance.EuclideanDistance;
 import net.sf.javaml.tools.DatasetTools;
-import net.sf.javaml.clustering.Clusterer;
 
 public class KMeans
 implements Clusterer

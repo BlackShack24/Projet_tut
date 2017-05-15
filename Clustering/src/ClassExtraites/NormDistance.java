@@ -1,8 +1,5 @@
 package ClassExtraites;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.AbstractDistance;
 
@@ -27,7 +24,7 @@ extends AbstractDistance
 		assert (x.noAttributes() == y.noAttributes());
 		double sum = 0.0D;
 
-		if(x.noAttributes() >= 10) {
+		if(x.noAttributes() >= 5) {
 			for (int i = 0; i < x.noAttributes(); i++) {
 				sum += Math.pow(Math.abs(y.value(i) - x.value(i)), this.power);
 			}
