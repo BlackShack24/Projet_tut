@@ -60,7 +60,9 @@ implements Clusterer
 			double[] randomInstance = DatasetTools.getRandomInstance(data, this.rg);
 			this.centroids[j] = new DenseInstance(randomInstance);
 		}
-
+		for(int i=0; i<centroids.length;i++){
+			System.out.println("Centroid "+i+" : "+centroids[i]);
+		}
 		boolean centroidsChanged = true;
 		boolean randomCentroids = true;
 		while ((randomCentroids) || ((iterationCount < this.numberOfIterations) && (centroidsChanged)))
@@ -124,6 +126,7 @@ implements Clusterer
 				}
 			}
 		}
+
 		Dataset[] output = new Dataset[this.centroids.length];
 		for (int i = 0; i < this.centroids.length; i++) {
 			output[i] = new DefaultDataset();
