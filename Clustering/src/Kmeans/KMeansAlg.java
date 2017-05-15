@@ -11,10 +11,10 @@ public class KMeansAlg {
 	public static void main(String[] args) throws Exception {
 
 		Donnees d = new Donnees();
-		Dataset data = d.extraireDonneesTest();
+		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 
-		Clusterer cl = new KMeans(4,10);
+		Clusterer cl = new KMeans(80,1);
 
 		System.out.println("Méthode utilisée : KMeans"); 
 

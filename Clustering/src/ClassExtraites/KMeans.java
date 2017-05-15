@@ -77,14 +77,14 @@ implements Clusterer
 				double minDistance = this.dm.measure(this.centroids[0], data.instance(i));
 				for (int j = 1; j < this.centroids.length; j++)
 				{
-					if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
+//					if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
 						double dist = this.dm.measure(this.centroids[j], data.instance(i));
 						if (this.dm.compare(dist, minDistance))
 						{
 							minDistance = dist;
 							tmpCluster = j;
 						}
-					}
+//					}
 				}
 				assignment[i] = tmpCluster;
 			}
@@ -137,14 +137,14 @@ implements Clusterer
 			double minDistance = this.dm.measure(this.centroids[0], data.instance(i));
 			for (int j = 0; j < this.centroids.length; j++)
 			{
-				if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
+//				if(verifComparaison(this.centroids[j], data.instance(i))) {	// Vérifie que les instances est au moins 10 élément en commun
 					double dist = this.dm.measure(this.centroids[j], data.instance(i));
 					if (this.dm.compare(dist, minDistance))
 					{
 						minDistance = dist;
 						tmpCluster = j;
 					}
-				}
+//				}
 			}
 			output[tmpCluster].add(data.instance(i));
 		}

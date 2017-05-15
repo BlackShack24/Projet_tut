@@ -37,7 +37,7 @@ public class DataTest {
 		// la seconde contiens en clef les idu et en valeur le film.
 		int nbF = 0;
 
-		while (k<200) {
+		while (k<100000) {
 			line = br.readLine();
 			values = line.split("\t");
 			//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
@@ -66,6 +66,9 @@ public class DataTest {
 		}
 		System.out.println("Nombre de films : "+nbF);
 		// une fois la Hashmap remplie on va tout mettre dans la liste Data
+		for(int i=0;i<notes_items.size();i++){
+			data.add(notes_items.get(i+1));
+		}
 		System.out.println("Hashmap taille : "+notes_items.size());
 		System.out.println("Data taille :"+data.size());
 
