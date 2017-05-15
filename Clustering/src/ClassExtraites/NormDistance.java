@@ -1,5 +1,8 @@
 package ClassExtraites;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.AbstractDistance;
 
@@ -23,14 +26,21 @@ extends AbstractDistance
 	{
 		assert (x.noAttributes() == y.noAttributes());
 		double sum = 0.0D;
+		int compteur = 0;
+		Set cles = x.keySet();
+		Iterator it = cles.iterator();
+
 		if(x.noAttributes() >= 5) {
-			for (int i = 0; i < x.noAttributes(); i++) {
-				sum += Math.pow(Math.abs(y.value(i) - x.value(i)), this.power);
+			while(it.hasNext()) {
+				if(y.containsKey(it)) {
+					compteur++;
+					sum += Math.pow(Math.abs(x.get(it) - y.get(it)), this.power);
+				}
 			}
-		}else{
-			System.out.println("NormDistance ligne 35");
 		}
+		else return 10000.0;
+		if(compteur < 5) return 10000.0;
+		
 		return Math.pow(sum, 1.0D / this.power);
 	}
-
 }
