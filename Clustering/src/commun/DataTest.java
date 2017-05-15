@@ -66,12 +66,6 @@ public class DataTest {
 		}
 		System.out.println("Nombre de films : "+nbF);
 		// une fois la Hashmap remplie on va tout mettre dans la liste Data
-
-		Set cles = notes_items.keySet();
-		Iterator it = cles.iterator();
-		while(it.hasNext()) {
-			data.add(notes_items.get(it));
-		}
 		System.out.println("Hashmap taille : "+notes_items.size());
 		System.out.println("Data taille :"+data.size());
 

@@ -16,149 +16,63 @@ public class Donnees {
 	public Dataset extraireDonnees() throws Exception{
 		// Calcul temps d'execution
 				long debut = System.currentTimeMillis();
-				
+
 				/*Create dateset*/
 				Dataset data = new DefaultDataset();
-				
+
 				//HashMap<Integer, HashMap<Integer, Double>> notes_items = new HashMap<>();
-				File f1 = new File("Donnees\\ratings.csv");
+				File f1 = new File("Donnees\\u.data");
 				BufferedReader br = new BufferedReader(new FileReader(f1));
-				String line = br.readLine();
+				String line = "";
 				String[] values;
 				double idu, idi, k=0;
 				double note;
+				double indiv = 0;
+				// l objet data est un objet qui se comporte comme une liste
+				// on passe donc par une hashmap pour que les film soient triés 
+				// meme si dans le fichier il ne sont pas triés
+				HashMap<Integer, Instance> notes_items = new HashMap<>();
+				// l instance I va avoir comme clef les idFilm lies a une Instance
+				// la seconde contiens en clef les idu et en valeur le film.
+				int nbF = 0;
+
 				while (k<200) {
 					line = br.readLine();
-					k++;
-					if (k % 10000 == 0) System.out.println(k);
-					values = line.split(",");
+					values = line.split("\t");
+					//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
 					idu = Double.parseDouble(values[0]);
 					idi = Double.parseDouble(values[1]);
 					note = Double.parseDouble(values[2]);
-					if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a			
-					double[] valeurs = new double[] { idi, idu, note };
-					/* Create instance*/
-					Instance instance = new DenseInstance(valeurs);
-					
-					data.add(instance);
+					if(notes_items.containsKey((int)idi)){
+						// la map contiens le film
+						// on recupere la liste des notes pour ce film
+						Instance i = notes_items.get((int) idi);
+						// on ajoute l utilisateur et la note lue
+						i.put((int) idu, note);
+						// on part du principe qu'il n'y a pas un utilisateur qui note 2x un film
+					}else{
+						// la map ne contiens pas le film
+						// on cree une Instance
+						Instance i = new SparseInstance();
+						// on ajoute la note de l utilisateur pour le film
+						i.put((int) idu, note);
+						// on ajoute le film a la liste des film
+						notes_items.put((int)idi, i);
+						//System.out.println("Pas dans la map");
+						nbF ++;
+					}
+					k++;
 				}
+				System.out.println("Nombre de films : "+nbF);
+				// une fois la Hashmap remplie on va tout mettre dans la liste Data
+				System.out.println("Hashmap taille : "+notes_items.size());
+				System.out.println("Data taille :"+data.size());
+
 				br.close();
-		
-		return data;
+
+				return data;
+
 	}
 
-	public Dataset extraireDonneesTest() throws Exception{
-		// Calcul temps d'execution
-		long debut = System.currentTimeMillis();
-		// on cree le DataSet a retourner
-		Dataset data = new  DefaultDataset();
-		// creation du fichier
-		File f1 = new File("Donnees\\ratings.csv");
-		BufferedReader br = new BufferedReader(new FileReader(f1));
-		BufferedReader br2 = new BufferedReader(new FileReader(f1));
-		String line = br.readLine();
-		String line2 = br2.readLine();
-		String[] values;
-		double idu, idi;
-		int k=0, l=0;
-		double note;
-		ArrayList<double[]> donnes = new ArrayList<double[]>();
-		
-		
-		// boucle de parcours du fichier
-		double idimax = 0;
-		// on recupere l idfilmMax
-		while(l<200){
-			line2 = br2.readLine();
-			values = line2.split(",");
-			idi = Double.parseDouble(values[1]);
-			if(idi > idimax){
-				idimax = idi;
-			}
-			l++;
-		}
-		br2.close();
-		System.out.println("idfilmMax : " + idimax);
-		
-		double iduprec = 1;
-		while(k<200){ //3627 = 20 user
-			line = br.readLine();
-			//if (k % 10000 == 0) System.out.println(k);
-			values = line.split(",");
-			idu = Double.parseDouble(values[0]);
-			idi = Double.parseDouble(values[1]);
-			note = Double.parseDouble(values[2]);
-			if (note < 1.0) note = 1.0; // On vire les notes de 0.5 s'il y en a
-			if(iduprec != idu){
-				System.out.println("Test1");
-				if(donnes.get(k-1)[1] != idimax){
-					System.out.println("Test2");
-					double[] valeurs = new double[] { iduprec, idimax, 0};
-					iduprec = idu;
-				}
-			}
-			// on doit regrouper les ID film ensembles 
-			double[] valeurs = new double[] { idu, idi, note };
-			/* Create instance*/
-			donnes.add(valeurs);
-			k++;
-		}
-		br.close();
-
-		System.out.println("idfilmMax : " + idimax);
-		
-
-
-		// on ajoute une valeur pour la note du "dernier" film si il n'y en a pas
-		double user = donnes.get(0)[0];
-		for(int i=0;i<donnes.size();i++){
-			if(donnes.get(i)[0] !=user){
-				if(donnes.get(i-1)[1] != idimax){
-					
-				}
-			}
-		}
-		// tri de l ArrayList
-		double indiv = donnes.get(0)[0];
-		Instance instance = new SparseInstance();
-		for(int i=0; i<donnes.size();i++){
-			if(donnes.get(i)[0]!=indiv) {
-				data.add(instance);
-				indiv = donnes.get(i)[0];
-				instance = new SparseInstance();
-			}
-			instance.put((int) donnes.get(i)[1], donnes.get(i)[2]);
-		}
-		data.add(instance);
-		// Temps d'execution pour récuperer les données
-		System.out.println("Temps récupération de données : "+(System.currentTimeMillis()-debut)+" millisecondes");
-		this.printData(data);
-		return data;
-	}
 	
-	public void printData(Dataset d){
-		
-//		System.out.println("Nombre attributs : "+d.noAttributes());
-		System.out.println("Taille : "+d.size());
-//		System.out.println(d);
-		System.out.println("------------INSTANCE-------------");
-		Instance i = d.get(0);
-		System.out.println("Nombre attribut de l 'instance : "+i.noAttributes());
-		System.out.println("Taille de l'instance : "+i.size());
-		System.out.println(i);
-//		for(int j=0; j<i.noAttributes();j++){
-//			if(i.value(j)!=0){
-//				System.out.println("Valeur "+j+" : "+i.value(j));
-//			}
-//			
-//		}
-		System.out.println(d.get(1).noAttributes());
-		System.out.println(d.get(1));
-		System.out.println(d.get(2).noAttributes());
-		System.out.println(d.get(2));
-		System.out.println(d.get(3).noAttributes());
-		System.out.println(d.get(2));
-		System.out.println("----------------------------------");
-		
-	}
 }
