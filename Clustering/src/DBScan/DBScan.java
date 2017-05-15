@@ -24,7 +24,7 @@ public class DBScan {
 
 		Donnees d = new Donnees();
 
-		Dataset data = d.extraireDonneesTest();
+		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 		
 		//Epsilon = 0.6, minpoints = 6 and a normalized version of the euclidean distance
