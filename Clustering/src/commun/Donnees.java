@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
+
 import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
@@ -30,7 +33,7 @@ public class Donnees {
 		double indiv = 0;
 		// l objet data est un objet qui se comporte comme une liste
 		// on passe donc par une hashmap pour que les film soient triés 
-		// meme si dans le fichier il ne sont pas triés
+		// meme si dans le fichier il ne le sont pas
 		HashMap<Integer, Instance> notes_items = new HashMap<>();
 		// l instance I va avoir comme clef les idFilm lies a une Instance
 		// la seconde contiens en clef les idu et en valeur le film.
@@ -39,16 +42,15 @@ public class Donnees {
 		while (k<100000) {
 			line = br.readLine();
 			values = line.split("\t");
-			//System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
+//			System.out.println("IDU : "+ values[0]+ " IDF : "+values[1]+" note : " +values[2]);
 			idu = Double.parseDouble(values[0]);
 			idi = Double.parseDouble(values[1]);
 			note = Double.parseDouble(values[2]);
 			if(notes_items.containsKey((int)idi)){
 				// la map contiens le film
 				// on recupere la liste des notes pour ce film
-				Instance i = notes_items.get((int) idi);
 				// on ajoute l utilisateur et la note lue
-				i.put((int) idu, note);
+				notes_items.get((int) idi).put((int) idu, note);
 				// on part du principe qu'il n'y a pas un utilisateur qui note 2x un film
 			}else{
 				// la map ne contiens pas le film
@@ -64,11 +66,16 @@ public class Donnees {
 			k++;
 		}
 		System.out.println("Nombre de films : "+nbF);
+
+		
+		Set cles = notes_items.keySet();
+		Iterator it = cles.iterator();
 		// une fois la Hashmap remplie on va tout mettre dans la liste Data
-		for(int i=0;i<notes_items.size();i++){
-			data.add(notes_items.get(i+1));
+		while(it.hasNext()) {
+			data.add(notes_items.get(it.next()));
 			// voir le add avec indice et Instance
 		}
+		
 		System.out.println("Hashmap taille : "+notes_items.size());
 		System.out.println("Data taille :"+data.size());
 
