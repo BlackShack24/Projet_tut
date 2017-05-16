@@ -16,6 +16,7 @@ public class KMeansAlg {
 
 		Clusterer cl = new KMeans(4,100);
 
+
 		System.out.println("Méthode utilisée : KMeans"); 
 
 		/* The actual clustering of the data */ 
