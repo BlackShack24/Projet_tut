@@ -139,24 +139,24 @@ public class KMeans {
     }
     
     private void calculateCentroids() {
-        for(int i=0 ; i<clusters.size() ; i++) {
-            double sumX = 0;
-            double sumY = 0;
-            List list = ((Cluster) clusters.get(i)).getPoints();
-            int n_points = list.size();
-            
-            for(int j=0 ; j<list.size() ; j++) {
-            	sumX += ((Point) list.get(j)).getX();
-                sumY += ((Point) list.get(j)).getY();
-            }
-            
-            Point centroid = ((Cluster) clusters.get(i)).getCentroid();
-            if(n_points > 0) {
-            	double newX = sumX / n_points;
-            	double newY = sumY / n_points;
-                centroid.setX(newX);
-                centroid.setY(newY);
-            }
-        }
+//        for(int i=0 ; i<clusters.size() ; i++) {
+//            double sumX = 0;
+//            double sumY = 0;
+//            List list = ((Cluster) clusters.get(i)).getPoints();
+//            int n_points = list.size();
+//            
+//            for(int j=0 ; j<list.size() ; j++) {
+//            	sumX += ((Point) list.get(j)).getX();
+//                sumY += ((Point) list.get(j)).getY();
+//            }
+//            
+//            Point centroid = ((Cluster) clusters.get(i)).getCentroid();
+//            if(n_points > 0) {
+//            	double newX = sumX / n_points;
+//            	double newY = sumY / n_points;
+//                centroid.setX(newX);
+//                centroid.setY(newY);
+//            }
+//        }
     }
 }
