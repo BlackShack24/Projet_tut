@@ -45,7 +45,6 @@ public class Data {
 			k++;
 		}
 		br.close();
-		System.out.println(notes_items);
 		return notes_items;
 
 	}

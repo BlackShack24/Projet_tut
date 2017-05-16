@@ -2,8 +2,10 @@ package Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class Point {
 
@@ -42,8 +44,35 @@ public class Point {
     	// on calcule la distance uniquement sur les truc en commun
     		// on garde les centroids set comme ils sont
     		// on remplis les centroids sur les 940 dimention avec des notes aleatoires
-    	return 0;
-    }
+    	
+    	int compteur = 0;
+    	Set cles = centroid.getCoord().keySet();
+    	Iterator it = cles.iterator();
+    	Set cles2 = p.getCoord().keySet();
+    	Iterator it2 = cles2.iterator();
+    	
+		double meanX, meanY;
+		int sumX=0, sumY=0;
+		// Si l'instance x ou y a moins de 5 attributs alors on retourne une valeur aberrante 
+		if(cles.size()<5 || cles2.size()<5) return 10000.0;
+		// Récuperation des valeurs des instances pour en faire la moyenne
+		while(it.hasNext()) {
+			Object ob = it.next();
+			if(p.getCoord().containsKey(ob)) compteur++;
+			sumX += centroid.getCoord().get(ob);
+		}
+		meanX = sumX / cles.size();
+		while(it2.hasNext()) sumY += p.getCoord().get(it2.next());
+		meanY = sumY / cles2.size();
+		
+		// Calcul de la distance euclidienne
+		double sum = (meanY - meanX) * (meanY - meanX);
+		
+		// Si il y a moins de 5 similarités entre les instances on renvoi une valeur aberrante
+		if(compteur < 5) return 10000.0;
+		return Math.sqrt(sum);
+	}
+    
     
     //Creates random point
     protected static Point createRandomPoint(int min, int max) {

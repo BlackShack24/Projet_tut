@@ -9,7 +9,10 @@ package Test;
 */
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import Test.Cluster;
 import Test.Point;
@@ -26,22 +29,29 @@ public class KMeans {
     
     private List points;
     private List clusters;
+    private HashMap<Integer, HashMap<Integer, Double>> data;
     
     public KMeans() {
     	this.points = new ArrayList();
     	this.clusters = new ArrayList();    	
     }
     
-    public static void main(String[] args) {
-    	KMeans kmeans = new KMeans();
-    	kmeans.init();
-    	kmeans.calculate();
+    public KMeans(HashMap<Integer, HashMap<Integer, Double>> m){
+    	data = m;
+    	this.points = new ArrayList();
+    	this.clusters = new ArrayList();
     }
     
     //Initializes the process
     public void init() {
     	//Create Points
-    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
+//    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
+    	Set cle = data.keySet();
+    	Iterator it = cle.iterator();
+    	while(it.hasNext()){
+    		Object ob = it.next();
+    		points.add(new Point(data.get(ob)));
+    	}
     	
     	//Create Clusters
     	//Set Random Centroids
