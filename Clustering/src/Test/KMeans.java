@@ -22,7 +22,7 @@ public class KMeans {
     private int NUM_POINTS = 15;
     //Min and Max X and Y
     private static final int MIN_COORDINATE = 0;
-    private static final int MAX_COORDINATE = 10;
+    private static final int MAX_COORDINATE = 5;
     
     private List points;
     private List clusters;
@@ -111,7 +111,7 @@ public class KMeans {
     	List centroids = new ArrayList(NUM_CLUSTERS);
     	for(int i = 0 ; i < clusters.size() ; i++) {
     		Point aux = ((Cluster) clusters.get(i)).getCentroid();
-    		Point point = new Point(aux.getX(),aux.getY());
+    		Point point = new Point(aux.getCoord());
     		centroids.add(point);
     	}
     	return centroids;

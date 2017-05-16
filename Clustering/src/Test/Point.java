@@ -1,38 +1,32 @@
 package Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 public class Point {
 
-    private double x = 0;
-    private double y = 0;
+    private HashMap<Integer, Double> coord;
     private int cluster_number = 0;
 
-    public Point(double x, double y)
+    public Point(HashMap<Integer, Double> m)
     {
-        this.setX(x);
-        this.setY(y);
+        this.setCoord(m);
     }
     
-    public void setX(double x) {
-        this.x = x;
-    }
     
-    public double getX()  {
-        return this.x;
-    }
-    
-    public void setY(double y) {
-        this.y = y;
-    }
-    
-    public double getY() {
-        return this.y;
-    }
-    
-    public void setCluster(int n) {
+    public HashMap<Integer, Double> getCoord() {
+		return coord;
+	}
+
+
+	public void setCoord(HashMap<Integer, Double> coord) {
+		this.coord = coord;
+	}
+
+
+	public void setCluster(int n) {
         this.cluster_number = n;
     }
     
@@ -42,15 +36,27 @@ public class Point {
     
     //Calculates the distance between two points.
     protected static double distance(Point p, Point centroid) {
-        return Math.sqrt(Math.pow((centroid.getY() - p.getY()), 2) + Math.pow((centroid.getX() - p.getX()), 2));
+        // on doit calculer la distance entre les deux points
+    	// on fait la moyenne des coordonnes pour chaques point
+    	
+    	// on calcule la distance uniquement sur les truc en commun
+    		// on garde les centroids set comme ils sont
+    		// on remplis les centroids sur les 940 dimention avec des notes aleatoires
+    	return 0;
     }
     
     //Creates random point
     protected static Point createRandomPoint(int min, int max) {
     	Random r = new Random();
-    	double x = min + (max - min) * r.nextDouble();
-    	double y = min + (max - min) * r.nextDouble();
-    	return new Point(x,y);
+    	int size = 0 + (940-0) * r.nextInt();
+    	// on remplis une HashMap avec des valeurs aléatoires
+    	HashMap<Integer, Double> m = new HashMap<>();
+    	for(int i=0; i< size; i++){
+    		int u = 0 + (940 - 0) * r.nextInt();
+    		double note = min + (max - min) * r.nextDouble();
+    		m.put(u, note);
+    	}
+    	return new Point(m);
     }
     
     protected static List createRandomPoints(int min, int max, int number) {
@@ -62,6 +68,6 @@ public class Point {
     }
     
     public String toString() {
-    	return "("+x+","+y+")";
+    	return this.coord.toString();
     }
 }
