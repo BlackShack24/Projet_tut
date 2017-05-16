@@ -65,8 +65,10 @@ implements Clusterer
 		}
 		boolean centroidsChanged = true;
 		boolean randomCentroids = true;
+		System.out.println("numberOfIterations : "+this.numberOfIterations);
 		while ((randomCentroids) || ((iterationCount < this.numberOfIterations) && (centroidsChanged)))
 		{
+			System.out.println(iterationCount);
 			iterationCount++;
 
 			int[] assignment = new int[data.size()];
