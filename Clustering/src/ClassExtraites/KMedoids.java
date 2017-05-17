@@ -7,7 +7,6 @@ import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.Instance;
 import net.sf.javaml.distance.DistanceMeasure;
-import net.sf.javaml.distance.EuclideanDistance;
 import net.sf.javaml.tools.DatasetTools;
 
 public class KMedoids
@@ -62,11 +61,11 @@ implements Clusterer
 		int[] out = new int[data.size()];
 		for (int i = 0; i < data.size(); i++)
 		{
-			double bestDistance = this.dm.measure(data.instance(i), medoids[0]);
+			double bestDistance = ((EuclideanDistance) this.dm).calculateDistance(data.instance(i), medoids[0]);
 			int bestIndex = 0;
 			for (int j = 1; j < medoids.length; j++)
 			{
-				double tmpDistance = this.dm.measure(data.instance(i), medoids[j]);
+				double tmpDistance = ((EuclideanDistance) this.dm).calculateDistance(data.instance(i), medoids[j]);
 				if (this.dm.compare(tmpDistance, bestDistance))
 				{
 					bestDistance = tmpDistance;

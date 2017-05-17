@@ -121,7 +121,7 @@ implements Clusterer
 						double dist = Math.abs(max.value(j) - min.value(j));
 						randomInstance[j] = ((float)(min.value(j) + this.rg.nextDouble() * dist));
 					}
-					randomCentroids = true;
+//					randomCentroids = true;
 					this.centroids[i] = new DenseInstance(randomInstance);
 				}
 			}
