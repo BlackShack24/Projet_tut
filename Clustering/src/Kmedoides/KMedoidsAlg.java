@@ -17,6 +17,7 @@ import net.sf.javaml.core.Dataset;
 import net.sf.javaml.core.DefaultDataset;
 import net.sf.javaml.core.DenseInstance;
 import net.sf.javaml.core.Instance;
+import net.sf.javaml.tools.data.FileHandler;
 
 public class KMedoidsAlg {
 
@@ -26,7 +27,7 @@ public class KMedoidsAlg {
 		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 		
-		Clusterer cl = new KMedoids(4, 10, new EuclideanDistance());
+		Clusterer cl = new KMedoids(10, 40, new EuclideanDistance());
 		
 		System.out.println("Méthode utilisée : KMedoids"); 
 
@@ -44,6 +45,11 @@ public class KMedoidsAlg {
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
 
+		for (int i = 0; i < clusters.length; i++) { 
+			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\Kmedoids-output2" + i + ".txt")); 
+		}
+		
+		
 //		/* Create object for the evaluation of the clusters */ 
 //		ClusterEvaluation eval;
 //		/* Measuring the quality of the clusters (multiple measures) */ 
