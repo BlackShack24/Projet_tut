@@ -20,7 +20,7 @@ extends NormDistance
 		Iterator it2 = cles2.iterator();
 		double meanX, meanY;
 		int sumX=0, sumY=0;
-		
+
 		// Si l'instance x ou y a moins de 5 attributs alors on retourne une valeur aberrante 
 		if(x.noAttributes()<5 || y.noAttributes()<5) return 10000.0;
 

@@ -160,7 +160,7 @@ implements Clusterer
 //		Iterator it = cles.iterator();
 //
 //		while(it.hasNext()) {
-//			if(y.containsKey(it)) compteur++;
+//			if(y.containsKey(it.next())) compteur++;
 //		}
 //
 //		if(compteur < 10) return false;
