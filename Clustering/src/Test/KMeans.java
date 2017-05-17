@@ -20,7 +20,7 @@ import Test.Point;
 public class KMeans {
 
 	//Number of Clusters. This metric should be related to the number of points
-    private int NUM_CLUSTERS = 10;    
+    private int NUM_CLUSTERS = 6;    
 //    //Number of Points
 //    private int NUM_POINTS = 15;
     //Min and Max X and Y
@@ -57,7 +57,7 @@ public class KMeans {
     	Iterator it = cle.iterator();
     	while(it.hasNext()){
     		Object ob = it.next();
-    		points.add(new Point(data.get(ob)));
+    		points.add(new Point(data.get(ob), (int)ob));
     	}
     	//Create Clusters
     	//Set Random Centroids
@@ -198,6 +198,14 @@ public class KMeans {
     		// on change les coord du centroid
     		centroid.setCoord(nouvMap);
     		((Cluster) clusters.get(i)).setCentroid(centroid);
+    	}
+    }
+    
+    public void listFilm(){
+    	for (int i = 0; i < NUM_CLUSTERS; i++) {
+    		Cluster c = (Cluster) clusters.get(i);
+    		System.out.println("---------------------------------------------------------------------------------------------");
+    		System.out.println(c.recupererFilm());
     	}
     }
 }

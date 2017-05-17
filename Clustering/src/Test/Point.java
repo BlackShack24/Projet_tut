@@ -11,12 +11,27 @@ public class Point {
 
 	private HashMap<Integer, Double> coord;
 	private int cluster_number = 0;
+	private int idFilm;
 
 	public Point(HashMap<Integer, Double> m)
 	{
 		this.setCoord(m);
 	}
 
+	public Point(HashMap<Integer, Double> m, int numfilm)
+	{
+		this.setCoord(m);
+		this.idFilm = numfilm;
+	}
+
+
+	public int getIdFilm() {
+		return idFilm;
+	}
+
+	public void setIdFilm(int idFilm) {
+		this.idFilm = idFilm;
+	}
 
 	public HashMap<Integer, Double> getCoord() {
 		return coord;

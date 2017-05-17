@@ -62,5 +62,13 @@ public class Cluster {
 //		System.out.println("[Centroid: " + centroid + "]");
 		System.out.println("[Nombre de Points: "+ points.size()+ "]");
 	}
+	
+	public ArrayList<Integer> recupererFilm(){
+		ArrayList<Integer> retour = new ArrayList();
+		for(int i=0;i<this.points.size();i++){
+			retour.add(((Point) points.get(i)).getIdFilm());
+		}
+		return retour;
+	}
 
 }
