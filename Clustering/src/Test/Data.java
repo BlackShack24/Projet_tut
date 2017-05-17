@@ -34,6 +34,7 @@ public class Data {
 				// on contiens le film
 				HashMap<Integer, Double> i = notes_items.get((int)idi);
 				i.put((int) idu, note);
+				notes_items.put((int)idi, i);
 				
 			}else{
 				// il n'y a pas le film
@@ -45,7 +46,7 @@ public class Data {
 			k++;
 		}
 		br.close();
-		return null;
+		return notes_items;
 
 	}
 

@@ -9,7 +9,10 @@ package Test;
 */
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import Test.Cluster;
 import Test.Point;
@@ -22,27 +25,32 @@ public class KMeans {
     private int NUM_POINTS = 15;
     //Min and Max X and Y
     private static final int MIN_COORDINATE = 0;
-    private static final int MAX_COORDINATE = 10;
+    private static final int MAX_COORDINATE = 5;
     
     private List points;
     private List clusters;
+    private HashMap<Integer, HashMap<Integer, Double>> data;
     
     public KMeans() {
     	this.points = new ArrayList();
     	this.clusters = new ArrayList();    	
     }
     
-    public static void main(String[] args) {
-    	KMeans kmeans = new KMeans();
-    	kmeans.init();
-    	kmeans.calculate();
+    public KMeans(HashMap<Integer, HashMap<Integer, Double>> m){
+    	data = m;
+    	this.points = new ArrayList();
+    	this.clusters = new ArrayList();
     }
     
     //Initializes the process
     public void init() {
     	//Create Points
-    	points = Point.createRandomPoints(MIN_COORDINATE,MAX_COORDINATE,NUM_POINTS);
-    	
+    	Set cle = data.keySet();
+    	Iterator it = cle.iterator();
+    	while(it.hasNext()){
+    		Object ob = it.next();
+    		points.add(new Point(data.get(ob)));
+    	}
     	//Create Clusters
     	//Set Random Centroids
     	for (int i = 0; i < NUM_CLUSTERS; i++) {
@@ -111,7 +119,7 @@ public class KMeans {
     	List centroids = new ArrayList(NUM_CLUSTERS);
     	for(int i = 0 ; i < clusters.size() ; i++) {
     		Point aux = ((Cluster) clusters.get(i)).getCentroid();
-    		Point point = new Point(aux.getX(),aux.getY());
+    		Point point = new Point(aux.getCoord());
     		centroids.add(point);
     	}
     	return centroids;
@@ -139,24 +147,45 @@ public class KMeans {
     }
     
     private void calculateCentroids() {
-        for(int i=0 ; i<clusters.size() ; i++) {
-            double sumX = 0;
-            double sumY = 0;
-            List list = ((Cluster) clusters.get(i)).getPoints();
-            int n_points = list.size();
-            
-            for(int j=0 ; j<list.size() ; j++) {
-            	sumX += ((Point) list.get(j)).getX();
-                sumY += ((Point) list.get(j)).getY();
-            }
-            
-            Point centroid = ((Cluster) clusters.get(i)).getCentroid();
-            if(n_points > 0) {
-            	double newX = sumX / n_points;
-            	double newY = sumY / n_points;
-                centroid.setX(newX);
-                centroid.setY(newY);
-            }
-        }
+    	for(int i=0; i<clusters.size(); i++){
+    		// pour chaque cluster
+    		List list = ((Cluster) clusters.get(i)).getPoints(); // on récupère les points du cluster
+    		int nbr_points = list.size(); // on recupere la taille de la liste
+    		
+    		// nouvelle Hashmap qui contiendra les coord du prochain centroid
+    		HashMap<Integer, Double> nouvMap = new HashMap();
+    		// recuperation du centroid actuel
+    		Point centroid = ((Cluster) clusters.get(i)).getCentroid();
+    		for(int j=0; j<centroid.getCoord().size(); j++){
+    			// on regarde pour chaque point si il possede une note pour l utilisateur "j"
+    			for(int k=0; k<list.size(); k++){
+    				Point temp = (Point) list.get(k);
+    				// si le point possède une note pour cet user
+    				if(temp.getCoord().containsKey(j+1)){
+    					// si il y a une valeurs dans la nouvelleMap
+    					if(nouvMap.containsKey(j+1)){
+    						// on recupere l ancienne valeur
+    						double d = nouvMap.get(j+1);
+    						d += temp.getCoord().get(j+1);
+    						nouvMap.put(j+1, d);
+    					}else{
+    						// on ajoute la valeur à la HashMap
+    						double d = temp.getCoord().get(j+1);
+    						nouvMap.put(j+1, d);
+    					}
+    				}
+    			}
+    		}
+    		// une fois la nouvelle HashMap remplie
+    		// on va diviser chaque valeurs de la HashMap par le nombre de points dans le cluster
+    		for(int j=0;j<nouvMap.size();j++){
+    			double temp = nouvMap.get(j+1);
+    			temp /= nbr_points;
+    			nouvMap.put(j+1, temp);
+    		}
+    		// on change les coord du centroid
+    		centroid.setCoord(nouvMap);
+    		((Cluster) clusters.get(i)).setCentroid(centroid);
+    	}
     }
 }
