@@ -20,9 +20,9 @@ import Test.Point;
 public class KMeans {
 
 	//Number of Clusters. This metric should be related to the number of points
-    private int NUM_CLUSTERS = 3;    
-    //Number of Points
-    private int NUM_POINTS = 15;
+    private int NUM_CLUSTERS = 10;    
+//    //Number of Points
+//    private int NUM_POINTS = 15;
     //Min and Max X and Y
     private static final int MIN_COORDINATE = 0;
     private static final int MAX_COORDINATE = 5;
@@ -30,6 +30,7 @@ public class KMeans {
     private List points;
     private List clusters;
     private HashMap<Integer, HashMap<Integer, Double>> data;
+    private int maxIterations = 0;
     
     public KMeans() {
     	this.points = new ArrayList();
@@ -42,6 +43,13 @@ public class KMeans {
     	this.clusters = new ArrayList();
     }
     
+    
+    public KMeans(HashMap<Integer, HashMap<Integer, Double>> m, int it){
+    	data = m;
+    	this.points = new ArrayList();
+    	this.clusters = new ArrayList();
+    	this.maxIterations = it;
+    }
     //Initializes the process
     public void init() {
     	//Create Points
@@ -67,7 +75,7 @@ public class KMeans {
 	private void plotClusters() {
     	for (int i = 0; i < NUM_CLUSTERS; i++) {
     		Cluster c = (Cluster) clusters.get(i);
-    		c.plotCluster();
+    		c.plotClusterCourt();
     	}
     }
     
@@ -77,7 +85,7 @@ public class KMeans {
         int iteration = 0;
         
         // Add in new data, one at a time, recalculating centroids with each new one. 
-        while(!finish) {
+        while(!finish && iteration < maxIterations) {
         	//Clear cluster state
         	clearClusters();
         	
@@ -156,6 +164,7 @@ public class KMeans {
     		HashMap<Integer, Double> nouvMap = new HashMap();
     		// recuperation du centroid actuel
     		Point centroid = ((Cluster) clusters.get(i)).getCentroid();
+    		System.out.println("Centroid coord size :" + centroid.getCoord().size());
     		for(int j=0; j<centroid.getCoord().size(); j++){
     			// on regarde pour chaque point si il possede une note pour l utilisateur "j"
     			for(int k=0; k<list.size(); k++){
@@ -173,12 +182,15 @@ public class KMeans {
     						double d = temp.getCoord().get(j+1);
     						nouvMap.put(j+1, d);
     					}
+    				}else{
+    					nouvMap.put(j+1, centroid.getCoord().get(j+1));
     				}
     			}
     		}
     		// une fois la nouvelle HashMap remplie
     		// on va diviser chaque valeurs de la HashMap par le nombre de points dans le cluster
-    		for(int j=0;j<nouvMap.size();j++){
+    		for(int j=0;j<nouvMap.size()-1;j++){
+    			
     			double temp = nouvMap.get(j+1);
     			temp /= nbr_points;
     			nouvMap.put(j+1, temp);

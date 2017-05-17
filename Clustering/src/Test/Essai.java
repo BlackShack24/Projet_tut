@@ -9,8 +9,9 @@ public class Essai {
 		
 		Data d = new Data();
 		HashMap<Integer, HashMap<Integer, Double>> map =d.extraireDonnees();
-		KMeans kmeans = new KMeans(map);
+		KMeans kmeans = new KMeans(map, 10);
 		kmeans.init();
+		kmeans.calculate();
 	}
 
 }
