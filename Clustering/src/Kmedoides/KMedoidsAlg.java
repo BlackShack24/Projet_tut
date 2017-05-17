@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
+import ClassExtraites.EuclideanDistance;
 import ClassExtraites.KMedoids;
 import commun.Donnees;
 import net.sf.javaml.clustering.Clusterer;
@@ -25,7 +26,7 @@ public class KMedoidsAlg {
 		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 		
-		Clusterer cl = new KMedoids();
+		Clusterer cl = new KMedoids(4, 10, new EuclideanDistance());
 		
 		System.out.println("Méthode utilisée : KMedoids"); 
 
