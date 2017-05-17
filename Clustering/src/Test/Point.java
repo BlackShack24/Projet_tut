@@ -38,39 +38,31 @@ public class Point {
 
 	//Calculates the distance between two points.
 	protected static double distance(Point p, Point centroid) {
-		// on doit calculer la distance entre les deux points
-		// on fait la moyenne des coordonnes pour chaques point
-
-		// on calcule la distance uniquement sur les truc en commun
-		// on garde les centroids set comme ils sont
-		// on remplis les centroids sur les 940 dimention avec des notes aleatoires
-
-		int compteur = 0;
-		Set cles = centroid.getCoord().keySet();
+		double retour = 0;
+		// lorsque l'on compare deux film on va uniquement comparer sur les distances en commun
+		ArrayList<Double> coordcom1 = new ArrayList<Double>();
+		ArrayList<Double> coordcom2 = new ArrayList<Double>();
+		Set cles = p.getCoord().keySet();
 		Iterator it = cles.iterator();
-		Set cles2 = p.getCoord().keySet();
+		Set cles2 = centroid.getCoord().keySet();
 		Iterator it2 = cles2.iterator();
-
-		double meanX, meanY;
-		int sumX=0, sumY=0;
-		// Si l'instance x ou y a moins de 5 attributs alors on retourne une valeur aberrante 
-		if(cles.size()<5 || cles2.size()<5) return 10000.0;
-		// Récuperation des valeurs des instances pour en faire la moyenne
-		while(it.hasNext()) {
+		
+		// on parcours les coord du Point pour récuperer celles en commun avec le centroid
+		while(it.hasNext()){
 			Object ob = it.next();
-			if(p.getCoord().containsKey(ob)) compteur++;
-			sumX += centroid.getCoord().get(ob);
+			if(centroid.getCoord().containsKey(ob)){
+				// si l item est en commum on ajoute dans les list de coordonnes communes
+				coordcom1.add(centroid.getCoord().get(ob));
+				coordcom2.add(p.getCoord().get(ob));
+			}
 		}
-		meanX = sumX / cles.size();
-		while(it2.hasNext()) sumY += p.getCoord().get(it2.next());
-		meanY = sumY / cles2.size();
-
-		// Calcul de la distance euclidienne
-		double sum = (meanY - meanX) * (meanY - meanX);
-
-		// Si il y a moins de 5 similarités entre les instances on renvoi une valeur aberrante
-		if(compteur < 5) return 10000.0;
-		return Math.sqrt(sum);
+		// ensuite on fait la somme du carré des différence
+		for(int i=0; i<coordcom1.size(); i++){
+			retour += Math.pow(coordcom1.get(i) - coordcom2.get(i),2 );
+		}
+		
+		// et on retourne la racine de cette somme
+		return Math.sqrt(retour);
 	}
 
 

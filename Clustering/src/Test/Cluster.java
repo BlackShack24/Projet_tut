@@ -56,5 +56,11 @@ public class Cluster {
 		}
 		System.out.println("]");
 	}
+	
+	public void plotClusterCourt(){
+		System.out.println("[Cluster: " + id+"]");
+//		System.out.println("[Centroid: " + centroid + "]");
+		System.out.println("[Nombre de Points: "+ points.size()+ "]");
+	}
 
 }
