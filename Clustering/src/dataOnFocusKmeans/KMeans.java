@@ -1,4 +1,4 @@
-package Test;
+package dataOnFocusKmeans;
 /* 
  * KMeans.java ; Cluster.java ; Point.java
  *
@@ -14,8 +14,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import Test.Cluster;
-import Test.Point;
+import dataOnFocusKmeans.Cluster;
+import dataOnFocusKmeans.Point;
 
 public class KMeans {
 
@@ -51,14 +51,6 @@ public class KMeans {
     	this.maxIterations = it;
     }
     
-    public KMeans(HashMap<Integer, HashMap<Integer, Double>> m, int it, int nbclus){
-    	data = m;
-    	this.points = new ArrayList();
-    	this.clusters = new ArrayList();
-    	this.maxIterations = it;
-    	this.NUM_CLUSTERS = nbclus;
-    }
-    
     //Initializes the process
     public void init() {
     	//Create Points
@@ -70,10 +62,9 @@ public class KMeans {
     	}
     	//Create Clusters
     	//Set Random Centroids
-    	ArrayList<Point> centroids = Point.createRandomCentroid(NUM_CLUSTERS, points);
     	for (int i = 0; i < NUM_CLUSTERS; i++) {
     		Cluster cluster = new Cluster(i);
-    		Point centroid = new Point(centroids.get(i));
+    		Point centroid = Point.createRandomPoint(MIN_COORDINATE,MAX_COORDINATE);
     		cluster.setCentroid(centroid);
     		clusters.add(cluster);
     	}
@@ -174,37 +165,37 @@ public class KMeans {
     		HashMap<Integer, Double> nouvMap = new HashMap();
     		// recuperation du centroid actuel
     		Point centroid = ((Cluster) clusters.get(i)).getCentroid();
-    		// on parcours la liste des points
-    		for(int j=0; j<list.size();j++){
-    			// pour chaque point on regarde si on a pas ajoute le point a l arraylist
-    			Point p = (Point) list.get(j);
-    			// on va parcourir les notes de ce point
-    			Set clePoint = p.getCoord().keySet();
-    			Iterator itPoint = clePoint.iterator();
-    			while(itPoint.hasNext()){
-    				// on recupere l utilisateur
-    				int user = (int) itPoint.next();
-    				// on regarde si la nouvMap a l user
-    				if(nouvMap.containsKey(user)){
-    					// on recupere la note de nouvmap pour l user on y ajoute celle du point et on remet ca dans nouvmap
-    					double temp = nouvMap.get(user);
-    					temp += p.getCoord().get(user);
-    					nouvMap.put(user, temp);
+    		System.out.println("Centroid coord size :" + centroid.getCoord().size());
+    		for(int j=0; j<centroid.getCoord().size(); j++){
+    			// on regarde pour chaque point si il possede une note pour l utilisateur "j"
+    			for(int k=0; k<list.size(); k++){
+    				Point temp = (Point) list.get(k);
+    				// si le point possède une note pour cet user
+    				if(temp.getCoord().containsKey(j+1)){
+    					// si il y a une valeurs dans la nouvelleMap
+    					if(nouvMap.containsKey(j+1)){
+    						// on recupere l ancienne valeur
+    						double d = nouvMap.get(j+1);
+    						d += temp.getCoord().get(j+1);
+    						nouvMap.put(j+1, d);
+    					}else{
+    						// on ajoute la valeur à la HashMap
+    						double d = temp.getCoord().get(j+1);
+    						nouvMap.put(j+1, d);
+    					}
     				}else{
-    					nouvMap.put(user, p.getCoord().get(user));
+    					nouvMap.put(j+1, centroid.getCoord().get(j+1));
     				}
     			}
     		}
-    		// ensuite on divise chaque somme par le nombre de points pour faire une moyenne
-        	Set cleCentr = nouvMap.keySet();
-        	Iterator itCentr = cleCentr.iterator();
-        	while(itCentr.hasNext()){
-        		int userTemp = (int) itCentr.next();
-        		double temp = nouvMap.get(userTemp);
-        		temp/= nbr_points;
-        		nouvMap.put(userTemp, temp);
-        	} 
-    		
+    		// une fois la nouvelle HashMap remplie
+    		// on va diviser chaque valeurs de la HashMap par le nombre de points dans le cluster
+    		for(int j=0;j<nouvMap.size()-1;j++){
+    			
+    			double temp = nouvMap.get(j+1);
+    			temp /= nbr_points;
+    			nouvMap.put(j+1, temp);
+    		}
     		// on change les coord du centroid
     		centroid.setCoord(nouvMap);
     		((Cluster) clusters.get(i)).setCentroid(centroid);

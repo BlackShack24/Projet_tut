@@ -1,10 +1,12 @@
-package Test;
+package dataOnFocusKmeans;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
+import net.sf.javaml.core.Instance;
+import net.sf.javaml.core.SparseInstance;
 
 
 public class Data {

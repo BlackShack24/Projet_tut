@@ -1,4 +1,4 @@
-package Test;
+package dataOnFocusKmeans;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,11 +24,6 @@ public class Point {
 		this.idFilm = numfilm;
 	}
 
-	public Point(Point p){
-		this.coord = p.coord;
-		this.idFilm = p.idFilm;
-		this.cluster_number = p.cluster_number;
-	}
 
 	public int getIdFilm() {
 		return idFilm;
@@ -100,27 +95,6 @@ public class Point {
 		}
 		Point retour = new Point(m);
 		return retour;
-	}
-	
-	protected static ArrayList<Point> createRandomCentroid(int nombreCentroid, List points){
-		// les futurs centroids
-		ArrayList<Point> centroids = new ArrayList();
-		// pour chaque cnetroids
-		for(int i=0; i<nombreCentroid;i++){
-			// on genere un nombre aleratoire parmis la taille de la liste de nos points
-			double rand = points.size() * Math.random();
-			// on recupere le point correspondant
-			Point p = (Point)points.get((int)rand);
-			// si il n a pas deja ete choisis comme centroids et si il a au moins 100 coordonnes on le prend sinon on re genere un nombre aleatoire
-			while(centroids.contains(p)|| p.getCoord().size()<100){ //
-				rand = points.size() * Math.random();
-				p = (Point)points.get((int)rand);
-			}
-			// on ajoute le point choisis 
-			centroids.add((Point) points.get((int)rand));
-		}
-
-		return centroids;
 	}
 
 	protected static List createRandomPoints(int min, int max, int number) {

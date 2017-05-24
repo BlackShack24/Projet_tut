@@ -1,6 +1,7 @@
-package Test;
+package dataOnFocusKmeans;
 
 import java.util.HashMap;
+import dataOnFocusKmeans.*;
 
 public class Essai {
 
@@ -9,10 +10,10 @@ public class Essai {
 		
 		Data d = new Data();
 		HashMap<Integer, HashMap<Integer, Double>> map =d.extraireDonnees();
-		KMeans kmeans = new KMeans(map, 40, 4);
+		KMeans kmeans = new KMeans(map, 20);
 		kmeans.init();
 		kmeans.calculate();
-//		kmeans.listFilm();
+		kmeans.listFilm();
 	}
 
 }
