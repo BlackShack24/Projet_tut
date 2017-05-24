@@ -1,23 +1,16 @@
 package Kmedoides;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.util.HashMap;
 
-import ClassExtraites.EuclideanDistance;
-import ClassExtraites.KMedoids;
-import commun.Donnees;
 import net.sf.javaml.clustering.Clusterer;
 import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
-import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
-import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
-import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
 import net.sf.javaml.core.Dataset;
-import net.sf.javaml.core.DefaultDataset;
-import net.sf.javaml.core.DenseInstance;
-import net.sf.javaml.core.Instance;
 import net.sf.javaml.tools.data.FileHandler;
+import ClassExtraites.EuclideanDistance;
+import ClassExtraites.KMedoids;
+import ClassExtraites.WB;
+
+import commun.Donnees;
 
 public class KMedoidsAlg {
 
@@ -50,14 +43,18 @@ public class KMedoidsAlg {
 		}
 		
 		
-//		/* Create object for the evaluation of the clusters */ 
-//		ClusterEvaluation eval;
+		/* Create object for the evaluation of the clusters */ 
+		ClusterEvaluation eval;
 //		/* Measuring the quality of the clusters (multiple measures) */ 
 //		eval = new SumOfSquaredErrors(); 
 //		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
 //		eval = new SumOfCentroidSimilarities(); 
 //		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
 //		eval = new SumOfAveragePairwiseSimilarities(); 
-//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters));
+		eval = new WB(new EuclideanDistance());
+		eval.score(clusters);
+		System.out.println("Score according to SumOfDistanceIntraCluster: " + ((WB) eval).getDw());
+		System.out.println("Score according to SumOfDistanceInterCluster: " + ((WB) eval).getDb());
 	}
 }
