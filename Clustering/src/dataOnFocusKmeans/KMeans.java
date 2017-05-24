@@ -51,6 +51,13 @@ public class KMeans {
     	this.maxIterations = it;
     }
     
+    public KMeans(HashMap<Integer, HashMap<Integer, Double>> m, int it, int nbclus){
+    	data = m;
+    	this.points = new ArrayList();
+    	this.clusters = new ArrayList();
+    	this.maxIterations = it;
+    	this.NUM_CLUSTERS = nbclus;
+    }
     //Initializes the process
     public void init() {
     	//Create Points
@@ -165,7 +172,6 @@ public class KMeans {
     		HashMap<Integer, Double> nouvMap = new HashMap();
     		// recuperation du centroid actuel
     		Point centroid = ((Cluster) clusters.get(i)).getCentroid();
-    		System.out.println("Centroid coord size :" + centroid.getCoord().size());
     		for(int j=0; j<centroid.getCoord().size(); j++){
     			// on regarde pour chaque point si il possede une note pour l utilisateur "j"
     			for(int k=0; k<list.size(); k++){
