@@ -1,6 +1,10 @@
 package Kmeans;
 
 import net.sf.javaml.clustering.Clusterer;
+import net.sf.javaml.clustering.evaluation.ClusterEvaluation;
+import net.sf.javaml.clustering.evaluation.SumOfAveragePairwiseSimilarities;
+import net.sf.javaml.clustering.evaluation.SumOfCentroidSimilarities;
+import net.sf.javaml.clustering.evaluation.SumOfSquaredErrors;
 import net.sf.javaml.core.Dataset;
 import ClassExtraites.KMeans;
 
@@ -14,7 +18,7 @@ public class KMeansAlg {
 		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 
-		Clusterer cl = new KMeans(3,30);
+		Clusterer cl = new KMeans(6,60);
 
 
 		System.out.println("Méthode utilisée : KMeans"); 
@@ -33,14 +37,14 @@ public class KMeansAlg {
 		/* Print the number of clusters found */ 
 		System.out.println("Number of clusters: " + clusters.length); 
 
-//		/* Create object for the evaluation of the clusters */ 
-//		ClusterEvaluation eval;
-//		/* Measuring the quality of the clusters (multiple measures) */ 
-//		eval = new SumOfSquaredErrors(); 
-//		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
-//		eval = new SumOfCentroidSimilarities(); 
-//		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
-//		eval = new SumOfAveragePairwiseSimilarities(); 
-//		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
+		/* Create object for the evaluation of the clusters */ 
+		ClusterEvaluation eval;
+		/* Measuring the quality of the clusters (multiple measures) */ 
+		eval = new SumOfSquaredErrors(); 
+		System.out.println("Score according to SumOfSquaredErrors: " + eval.score(clusters)); 
+		eval = new SumOfCentroidSimilarities(); 
+		System.out.println("Score according to SumOfCentroidSimilarities: " + eval.score(clusters)); 
+		eval = new SumOfAveragePairwiseSimilarities(); 
+		System.out.println("Score according to SumOfAveragePairwiseSimilarities: " + eval.score(clusters)); 
 	}
 }

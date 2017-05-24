@@ -27,7 +27,7 @@ public class KMedoidsAlg {
 		Dataset data = d.extraireDonnees();
 		long debut = System.currentTimeMillis();
 		
-		Clusterer cl = new KMedoids(10, 40, new EuclideanDistance());
+		Clusterer cl = new KMedoids(6, 60, new EuclideanDistance());
 		
 		System.out.println("Méthode utilisée : KMedoids"); 
 
