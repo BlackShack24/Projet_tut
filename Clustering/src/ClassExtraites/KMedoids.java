@@ -46,6 +46,7 @@ implements Clusterer
 		{
 			changed = false;
 			count++;
+			System.out.println(count);
 			int[] assignment = assign(medoids, data);
 			changed = recalculateMedoids(assignment, medoids, output, data);
 		}
