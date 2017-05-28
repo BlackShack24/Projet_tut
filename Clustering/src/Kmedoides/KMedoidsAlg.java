@@ -36,11 +36,8 @@ public class KMedoidsAlg {
 		for (int i = 0; i < clusters.length; i++) System.out.println("Cluster "+(i+1)+" : "+clusters[i].size());
 		
 		/* Print the number of clusters found */ 
-		System.out.println("Number of clusters: " + clusters.length); 
+//		System.out.println("Number of clusters: " + clusters.length); 
 
-		for (int i = 0; i < clusters.length; i++) { 
-			FileHandler.exportDataset(clusters[i], new File("C:\\Users\\Clément\\Documents\\workspace\\M1_SC\\Projet_tut\\Output\\Kmedoids-output2" + i + ".txt")); 
-		}
 		
 		
 		/* Create object for the evaluation of the clusters */ 
