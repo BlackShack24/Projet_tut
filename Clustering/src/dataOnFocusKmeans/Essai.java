@@ -14,6 +14,9 @@ public class Essai {
 		kmeans.init();
 		kmeans.calculate();
 		kmeans.listFilm();
+		
+		kmeans.calculerInterCluster();
+		kmeans.calculerIntraCluster();
 	}
 
 }
